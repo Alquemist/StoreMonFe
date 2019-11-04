@@ -1,0 +1,14 @@
+- sačuvaj dugme enabled/disabled
+- da li delete u itemreporteru da odmah briše iz baze ili tek na save
+- on press sačuvaj disable; on add atrib enable
+- izdavanje naloga za usluge
+- custom forms not to break on resize
+- greške sa save dugmetom u Evidenciji
+- označeno dugme na navigaciji
+- negativno stanje u inventaru ?
+- LOGIN!
+- zaprimka pomjeriti sačuvaj dugme
+- mjesto i drugi init podaci u redux
+- zaprimljeno po ulaznoj/izlaznoj JM
+- alert kada stanje padne ispod praga
+- Kako označiti kase sa jednistvenim ID-om
