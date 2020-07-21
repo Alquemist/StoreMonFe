@@ -66,7 +66,7 @@ class FormGroup extends Component {
             <Form.Group as={Row}>
             
                 <Col md="4">
-                    <Form.Control id="naziv" type="text" placeholder="naziv" defaultValue={this.state.attr.naziv} onChange={(event) => this.onAttrChange(event, this.props.attr.id)}/>
+                    <Form.Control id="nazivAttr" type="text" placeholder="naziv" defaultValue={this.state.attr.naziv} onChange={(event) => this.onAttrChange(event, this.props.attr.id)}/>
                 </Col>
                 <Col md="3">
                     <Form.Control id="tip" as="select"  onChange={this.attrTypeChanger} defaultValue={this.state.attr.tip}>

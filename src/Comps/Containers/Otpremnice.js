@@ -5,7 +5,7 @@ import Alert from 'react-bootstrap/Alert';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import OtpremnicaHeader from '../Simple/VPHeader';
-import NewItem from '../Simple/VPNewItem';
+import NewItem from '../Simple/NewItem';
 import ItemList from '../Simple/ItemList';
 import {otpremnicaAxios} from '../../Misc/MyAxios'
 import {getDates, filterData} from '../../Misc/Functions'
@@ -112,6 +112,7 @@ const Otpremnice = (props) => {
                 fieldValidations={headerValidation}
             />}
             <NewItem
+                token={props.token}
                 otpremnica={otpremnica}
                 updateOtpremnica={updateOtpremnica}
                 customButton={customButton()}

@@ -11,7 +11,7 @@ const navBar = (props) => {
         <Navbar.Brand href="/">SPARTA</Navbar.Brand>
         <Nav className="mr-auto">
             <Nav.Link active={path===''} href="#/">Evidencija</Nav.Link>
-            <Nav.Link active={path==='Prodaja'} href="#Prodaja">Prodaja</Nav.Link>
+            <Nav.Link active={path==='Otpremnice'} href="#Otpremnice">Otpremnice</Nav.Link>
             <Nav.Link active={path==='Zaprimka'} href="#Zaprimka">Zaprimka</Nav.Link>
             <Nav.Link active={path==='Nalog'} href="#Nalog">Nalozi</Nav.Link>
             <Nav.Link active={path==='SpecProizvodnje'} href="#SpecProizvodnje">Sastavnica</Nav.Link>

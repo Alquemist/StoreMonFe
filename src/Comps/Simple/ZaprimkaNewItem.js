@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {InputWithAsyncAutocomplete, FormFieldWithPrefix, FormFieldWithDropdownSuffix} from './CustomForms';
 import {itemSearcHandler, itemTransformData} from '../../Misc/AsyncHandlers'
-import { newAxios } from '../../Misc/settings';
+import { newAxios } from '../../Misc/MyAxios';
 
 const newItem = (props) => {
     //console.log(props.item)

@@ -17,23 +17,23 @@ ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementB
 // Learn more about service workers: http://bit.ly/CRA-PWA
 //serviceWorker.unregister();
 
-var deferredPrompt;
+// var deferredPrompt;
 
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker
-      .register('/sw.js')
-      .then(function () {
-        console.log('Service worker registered!');
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-  }
+// if ('serviceWorker' in navigator) {
+//     navigator.serviceWorker
+//       .register('/sw.js')
+//       .then(function () {
+//         console.log('Service worker registered!');
+//       })
+//       .catch(function(err) {
+//         console.log(err);
+//       });
+//   }
   
-  window.addEventListener('beforeinstallprompt', function(event) {
-    console.log('beforeinstallprompt fired');
-    event.preventDefault();
-    deferredPrompt = event;
-    return false;
-  });
+//   window.addEventListener('beforeinstallprompt', function(event) {
+//     console.log('beforeinstallprompt fired');
+//     event.preventDefault();
+//     deferredPrompt = event;
+//     return false;
+//   });
   

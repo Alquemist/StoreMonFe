@@ -6,7 +6,6 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import {connect} from 'react-redux';
 import {loginAxios} from '../../Misc/MyAxios';
-import { preFetch } from '../../Misc/fetchs';
 
 const ChangeNalogStatusModal = (props) => {
 
@@ -41,7 +40,6 @@ const LoginModal = (props) => {
         .then(res => {
             console.log(res.data);
             props.onSetToken(res.data)
-            preFetch(res.data)
         })
         .catch(err => { 
             if (err.response.status === 400) {

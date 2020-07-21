@@ -1,21 +1,82 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
+import {newAxios} from '../../Misc/MyAxios'
 import {AsyncTypeahead} from 'react-bootstrap-typeahead';
 import {withRouter} from 'react-router-dom'
-import {newAxios} from '../../Misc/settings'
 
+const SearchButt = (props) => {
 
-class SearchButt extends Component {
-
-    token = this.props.token;
-    myAxios = newAxios(this.token)
-
-    state = {
-        response: {},
+    const [state, setState] = useState({
         isLoading: false,
         options: [],
+    });
+
+    const myAxios = newAxios(props.token)
+
+    const onSearchHandler = (param) => {
+        setState({isLoading: true, options: []});
+        myAxios({
+            url: '/inventar/searchItem/',
+            params: {
+                naziv: param
+              },
+        })
+        .then((response) => {
+            setState({isLoading:false, options: response.data})
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
     };
 
-    renderMeny = (option) => (
+    const onSelectHandler = (selection) => {
+        console.log(selection)
+        let item = {};
+
+        if (selection && selection.customOption) {
+            myAxios({
+                url: 'inventar/getLastInv/'
+            }).then(response => {
+                item = {
+                    naziv: selection.naziv,
+                    new: true, 
+                    invBr: response.data+1, 
+                    tip: 'proizvod',
+                    kolicina: 0, 
+                    JMUlaz: '', 
+                    JMIzlaz: '', 
+                    JMOdnos: 1,
+                };
+                console.log(item)
+                props.itemToStore(item)
+                props.attribsToStore([])
+            })
+            return
+        };
+
+        if (selection && !selection.customOption) {
+            item = {
+                ...selection
+            };
+        
+            myAxios({
+                url: '/atributi/getattribs',
+                params: {
+                    itemID: item.id
+                }
+            })
+            .then((response) => {
+                //console.log(response.data)
+                props.itemToStore(item)
+                props.attribsToStore(response.data)
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        };
+    };
+
+
+    const renderMeny = (option) => (
         <div>
           {option.naziv}
           <div>
@@ -24,96 +85,22 @@ class SearchButt extends Component {
         </div>
       )
 
-    onSelectHandler = (selection) => {
-        console.log(selection)
-        let item = {};
-
-        if (selection && selection.customOption) {
-            this.myAxios({
-                url: 'inventar/getLastInv/'
-            }).then(response => {
-                item = {
-                    naziv: selection.naziv,
-                    new: true, 
-                    invBr: response.data+1, 
-                    tip: 'proizvod',
-                    pdvStopa: 17,
-                    ziralMP: '',
-                    gotovinaMP: '',
-                    ziralVP: '',
-                    gotovinaVP: '',
-                    kolicina: 0, 
-                    JMUlaz: '', 
-                    JMIzlaz: '', 
-                    JMOdnos: 1,
-                };
-                console.log(item)
-                this.props.itemToStore(item)
-                this.props.attribsToStore([])
-            })
-            return
-        };
-
-        if (selection && !selection.customOption) {
-            
-            item = {
-                ...selection
-            };
-        
-            this.myAxios({
-                url: '/atributi/getattribs',
-                params: {
-                    itemID: item.id
-                }
-            })
-            .then((response) => {
-                //console.log(response.data)
-                this.props.itemToStore(item)
-                this.props.attribsToStore(response.data)
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-        };
-    };
-    
-    onSearchHandler = (param) => {
-        
-        this.setState({isLoading: true});
-        this.myAxios({
-            url: '/inventar/searchItem',
-            params: {
-                naziv: param
-              },
-        })
-        .then((response) => {
-            //console.log(response.data)
-            //const items = Object.keys(response.data)
-            //const options = items.filter(item => response.data[item].id)
-            //this.setState({isLoading: false, response: response.data, options: options})
-            this.setState({isLoading:false, options: response.data})
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
-    };
-    render () {
-        return (
+    return (
         <AsyncTypeahead
             newSelectionPrefix="Dodaj u inventar: "
             placeholder='Pretrazi'
             allowNew
             filterBy={['naziv', 'invBr']}
             labelKey='naziv'
-            renderMenuItemChildren={this.renderMeny}
+            renderMenuItemChildren={renderMeny}
             minLength={1}
             useCache={false}
-            isLoading={this.state.isLoading}
-            onSearch={this.onSearchHandler}
-            options={this.state.options}
-            onChange={(selected) => this.onSelectHandler(selected[0])}
-        />)
-    };
+            isLoading={state.isLoading}
+            onSearch={onSearchHandler}
+            options={state.options}
+            onChange={(selected) => onSelectHandler(selected[0])}
+        />
+    )
 };
 
 export default withRouter(SearchButt);

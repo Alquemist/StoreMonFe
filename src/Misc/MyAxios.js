@@ -1,47 +1,33 @@
 import axios from 'axios';
 
-// export const globals = {
-//     srv_url: 'http://localhost:8000/',
-
-// };
-
 
 export const newAxios = (token) => {
     return (
     axios.create({
-        baseURL: 'http://localhost:8000/api/',
-        timeout: 1000,
+        baseURL: 'http://localhost:8000/api',
+        timeout: 2000,
         headers: {Authorization: 'Token ' + token}})
   )
 };
 
-const POSAxios = () => {
-    return (
-        axios.create({
-            baseURL: 'http://localhost:8008/',
-            timeout: 1000,
-        })
-    )
-};
-
-export const POSAxiosGet = () => {
-    const MyAxios = POSAxios()
-    return (
-        MyAxios({
-            method: 'get',
-        })
-    )
-};
-
-// export const loginAxios = (user, pass) => {
+// const POSAxios = () => {
 //     return (
-//         axios.post("http://localhost:8000/gettoken/",
-//     {
-//         username: user,
-//         password: pass
-//     })
+//         axios.create({
+//             baseURL: 'http://localhost:8008/',
+//             timeout: 1000,
+//         })
 //     )
 // };
+
+// export const POSAxiosGet = () => {
+//     const MyAxios = POSAxios()
+//     return (
+//         MyAxios({
+//             method: 'get',
+//         })
+//     )
+// };
+
 
 export const loginAxios = (user, pass) => {
     return (
@@ -119,7 +105,6 @@ export const CreateAxiosMethods = (token) => {
 
 
 export const zaprimkaAxios = (token) => {
-
     const myAxios = newAxios(token)
 
     const getData = () => {
@@ -211,7 +196,7 @@ export const getNalogList = (token, queryData) => {
     return (
         myAxios({
             method: 'get',
-            url: 'nalozi/getNalogList',
+            url: 'nalozi/getNalogList/',
             params: {
                 queryData: queryData
               },

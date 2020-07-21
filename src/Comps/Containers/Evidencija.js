@@ -16,14 +16,9 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-import { preFetch } from '../../Misc/fetchs';
-
-import {zaprimkaFetch} from '../../Misc/fetchs';
-
 const Evidencija = (props) => {
     //console.log(props)
     const myAxiosMethods = CreateAxiosMethods(props.token)
-    console.log(require.resolve('idb'))
     const initState = {
         newAttribs: [],
         attribToEdit: {},
@@ -143,7 +138,6 @@ const Evidencija = (props) => {
     // zaprimkaFetch('/primka/getData/', props.token)
     // .then(data=>console.log(data))
     // .catch(err=>console.log(err))
-    preFetch(props.token).then(data =>console.log(data))
     return (
         <div>
             <Alert variant="secondary" style={{marginBottom: '8px'}}>

@@ -4,15 +4,11 @@ import Evidencija from './Evidencija';
 import Zaprimka from './Zaprimka';
 import Nalog from './Nalog';
 import SpecProizvodnje from './SpecProizvodnje';
-import TabWrapper from './OtpremniceTabsWrapper';
+import Otpremnice from './Otpremnice';
 import {LoginModal} from '../Simple/Modals'
 import {Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
-//import test from '../../Misc/test'
-
-console.log('može ovde')
 
 const mainWin = (props) => (
     <>
@@ -21,7 +17,7 @@ const mainWin = (props) => (
         <Route path='/Zaprimka' component={props.token? Zaprimka: LoginModal} />
         <Route path='/Nalog' component={props.token? Nalog: LoginModal} />
         <Route path='/SpecProizvodnje' component={props.token? SpecProizvodnje: LoginModal} />
-        <Route path='/Prodaja' component={props.token? TabWrapper: LoginModal} />
+        <Route path='/Otpremnice' component={props.token? Otpremnice: LoginModal} />
     </>
 );
 

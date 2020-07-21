@@ -14,7 +14,7 @@ import {InputWithAsyncAutocomplete, FormFieldWithPrefix, TextBox} from '../Simpl
 import {getLastInvBr, saveNalog, getSpecs, getNalogList, updateNalogStatus} from '../../Misc/MyAxios';
 import {filterData, getDates} from '../../Misc/Functions';
 import {itemSearcHandler, itemTransformData} from '../../Misc/AsyncHandlers';
-import { newAxios } from '../../Misc/settings';
+import { newAxios } from '../../Misc/MyAxios';
 
 //import { stringify } from 'querystring';
 
@@ -184,7 +184,7 @@ const Nalozi = (props) => {
 };
 
 const mapStateToProps = (fromRedux) => {
-    return {token: fromRedux.token,}
+    return {token: fromRedux.userData.token,}
 };
 
 const mapDispatchToProps = dispatch => {

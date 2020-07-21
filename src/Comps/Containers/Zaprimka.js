@@ -33,6 +33,7 @@ const Zaprimka = (props) => {
     const [validationData, setValidationData] = useState({formValidated: false, nazivInvalid: undefined, poUlaznojJMInvalid: undefined})
     const [fieldValidations, setFieldValidations] = useState({mjesto: undefined, dobavljac: undefined})
 
+    console.log(props.token)
     const myAxios = zaprimkaAxios(props.token)
 
     useEffect(() => {
@@ -182,7 +183,7 @@ const Zaprimka = (props) => {
 };
 
 const mapStateToProps = (fromRedux) => {
-    return {item: fromRedux.savedData.item, token: fromRedux.token}
+    return {item: fromRedux.savedData.item, token: fromRedux.userData.token}
 };
 
 const mapDispatchToProps = dispatch => {

@@ -103,142 +103,52 @@ const ItemReporter = (props) => {
                     value={props.item.invBr}
                     onChange={(newData)=>{props.setInvEdited(); props.updateItem(newData)}}
                 />
-                <Row>
-                    <Col>
-                        <FormFieldWithPrefix
-                            disabled={state.formDisabled}
-                            required
-                            type='text'
-                            prefix='JM ulazno'
-                            id='JMUlaz'
-                            placeholder='Mjera ulazna'
-                            prefixSize='6'
-                            value={props.item.JMUlaz}
-                            onChange={props.updateItem}
-                        />
-                    </Col>
-
-                    <Col style={{paddingLeft: '3px',}}>
-                        <FormFieldWithPrefix
-                            disabled={state.formDisabled}
-                            required
-                            type='text'
-                            prefix='JM izlazno'
-                            id='JMIzlaz'
-                            placeholder='Mjera izlazna'
-                            prefixSize='6'
-                            value={props.item.JMIzlaz}
-                            onChange={props.updateItem}
-                        />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <FormFieldWithPrefix key={rerender.JMOdnos}
-                            disabled={state.formDisabled}
-                            required
-                            type='tekst'
-                            prefix='JM odnos'
-                            id='JMOdnos'
-                            prefixSize='6'
-                            isInvalid={validationData.odnosInvalid}
-                            placeholder='JM izlaz/ulaz'
-                            invalidMessage={'Unesi validan odnos mjera'}
-                            value={props.item.JMOdnos}
-                            onChange={props.updateItem}
-                        />
-                    </Col>
-
-                    <Col style={{paddingLeft: '3px',}}>
-                        <FormFieldWithPrefix
-                            disabled={state.formDisabled}
-                            required
-                            type='number'
-                            prefix='PDV'
-                            id='pdvStopa'
-                            prefixSize='6'
-                            value={props.item.pdvStopa}
-                            onChange={props.updateItem}
-                        />
-                   </Col>
-                </Row>
+                <FormFieldWithPrefix
+                    disabled
+                    prefix='Na stanju:'
+                    value={props.item.kolicina}
+                    //onChange={props.updateItem}
+                    //prefixSize='4'
+                />
             </Form>
+
             <Form as={Col} md={6} validated={validated} style={{paddingLeft: '8px'}}>
-                <Row>
-                    <Col>
-                        <FormFieldWithPrefix
-                            disabled={state.formDisabled}
-                            required
-                            type='number'
-                            prefix='Gotovina MP'
-                            id='gotovinaMP'
-                            prefixSize='6'
-                            value={props.item.gotovinaMP}
-                            onChange={props.updateItem}
-                        />
-                    </Col>
+                <FormFieldWithPrefix
+                    disabled={state.formDisabled}
+                    required
+                    type='text'
+                    prefix='JM izlazno'
+                    id='JMIzlaz'
+                    placeholder='Mjera izlazna'
+                    prefixSize='6'
+                    value={props.item.JMIzlaz}
+                    onChange={props.updateItem}
+                />
+                <FormFieldWithPrefix
+                    disabled={state.formDisabled}
+                    required
+                    type='text'
+                    prefix='JM ulazno'
+                    id='JMUlaz'
+                    placeholder='Mjera ulazna'
+                    prefixSize='6'
+                    value={props.item.JMUlaz}
+                    onChange={props.updateItem}
+                />
+                <FormFieldWithPrefix key={rerender.JMOdnos}
+                    disabled={state.formDisabled}
+                    required
+                    type='tekst'
+                    prefix='JM odnos'
+                    id='JMOdnos'
+                    prefixSize='6'
+                    isInvalid={validationData.odnosInvalid}
+                    placeholder='JM izlaz/ulaz'
+                    invalidMessage={'Unesi validan odnos mjera'}
+                    value={props.item.JMOdnos}
+                    onChange={props.updateItem}
+                />
 
-                    <Col style={{paddingLeft: '3px'}}>
-                        <FormFieldWithPrefix
-                            disabled={state.formDisabled}
-                            required
-                            type='number'
-                            prefix='Žiral MP'
-                            id='ziralMP'
-                            prefixSize='6'
-                            value={props.item.ziralMP}
-                            onChange={props.updateItem}
-                        />
-                    </Col>
-                </Row>
-                
-                <Row>
-                    <Col>
-                        <FormFieldWithPrefix
-                            disabled={state.formDisabled}
-                            type='number'
-                            prefix='Gotovina VP'
-                            id='gotovinaVP'
-                            prefixSize='6'
-                            value={props.item.gotovinaVP}
-                            onChange={props.updateItem}
-                        />
-                    </Col>
-
-                    <Col style={{paddingLeft: '3px'}}>
-                        <FormFieldWithPrefix
-                            disabled={state.formDisabled}
-                            required
-                            type='number'
-                            prefix='Žiral VP'
-                            id='ziralVP'
-                            prefixSize='6'
-                            value={props.item.ziralVP}
-                            onChange={props.updateItem}
-                        />
-                    </Col>
-                </Row>
-
-                <Row>
-                    <Col>
-                        <FormFieldWithPrefix
-                            disabled
-                            prefix='Na stanju:'
-                            value={props.item.kolicina}
-                            //onChange={props.updateItem}
-                            prefixSize='6'
-                        />
-                    </Col>
-                    <Col style={{paddingLeft: '3px'}}>
-                        <FormFieldWithPrefix
-                            disabled
-                            prefix='Cijena'
-                            value={`MP:${props.item.ziralMP+props.item.gotovinaMP}  VP:${props.item.ziralVP+props.item.gotovinaVP}`}
-                            //onChange={props.updateItem}
-                            prefixSize='6'
-                        />
-                    </Col>
-                </Row>
             
                 <Row>
                     <Col>

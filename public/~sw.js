@@ -1,4 +1,5 @@
 importScripts('/idb.js')
+importScripts('../src/Misc/fetchs.js')
 
 
 CACHE_VERSION = 'v-0.2'
@@ -36,7 +37,7 @@ this.addEventListener('activate', (event) => {
 });
 
 this.addEventListener('fetch', (event) => {
-  event.respondeWith( event => {
+  event.respondeWith(
     zaprimkaFetch("9c700a4d2745506f862ebae29c058250ebad2ded").then(data=>{return(data)})
-   })
+   )
 });

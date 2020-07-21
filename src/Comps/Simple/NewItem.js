@@ -7,10 +7,10 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {InputWithAsyncAutocomplete, FormFieldWithPrefix, FormFieldWithDropdownSuffix} from './CustomForms';
 import {itemSearcHandler, itemTransformData} from '../../Misc/AsyncHandlers'
-import { newAxios } from '../../Misc/settings';
+import { newAxios } from '../../Misc/MyAxios';
 
 const NewItem = (props) => {
-    const token = '1a152f32953361f5f203a7ac68aa6e534498eb5a';
+    const token = props.token;
     const otpremnica = props.otpremnica
     const ddLabel = (typeof otpremnica.poIzlaznojJM === 'undefined')? '[JM] ': otpremnica.poIzlaznojJM? otpremnica.item.JMIzlaz: otpremnica.item.JMUlaz
     const [validationData, setValidationData] = useState({})
