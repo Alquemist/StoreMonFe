@@ -190,11 +190,12 @@ const FormFieldWithDropdownSuffix =  (props) => {
                     <Dropdown style={{width:'100%', height: '100%',}}>
                         <Dropdown.Toggle variant={ddButtonVariant} style={{width:'100%', height: '100%'}}>{props.ddLabel}</Dropdown.Toggle>
                             <Dropdown.Menu>
-                                {props.ddItems.map((ddItem) =>{
+                                {props.ddItems.map((ddItem, idx) => {
                                     //console.log(ddItem)
-                                    const key = Object.keys(ddItem)[0]; const value = Object.values(ddItem)[0];
+                                    // const key = Object.keys(ddItem)[0]; const value = Object.values(ddItem)[0];
+                                    // console.log(key)
                                     return(
-                                    <Dropdown.Item key={key} onSelect={newStatus => props.onSelectDD({[props.ddId]:newStatus})} eventKey={key}>{value}</Dropdown.Item>
+                                    <Dropdown.Item key={idx} onSelect={() => {console.log(idx); props.onSelectDD(idx)}}>{ddItem.label}</Dropdown.Item>
                                 )})}
                             </Dropdown.Menu>
                     </Dropdown>

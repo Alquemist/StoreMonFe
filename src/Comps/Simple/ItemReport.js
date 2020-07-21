@@ -88,7 +88,7 @@ const ItemReporter = (props) => {
                     onChange={props.updateItem}
                     ddLabel={props.item.tip}
                     ddItems={ddItems}
-                    onSelectDD={selection => props.updateItem({tip: selection})}
+                    onSelectDD={selection => props.updateItem({tip: ddItems[selection].label})}
                 />
                 <FormFieldWithPrefix key={rerender.invBr}
                     disabled={state.formDisabled}
