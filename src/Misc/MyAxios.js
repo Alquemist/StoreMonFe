@@ -10,25 +10,6 @@ export const newAxios = (token) => {
   )
 };
 
-// const POSAxios = () => {
-//     return (
-//         axios.create({
-//             baseURL: 'http://localhost:8008/',
-//             timeout: 1000,
-//         })
-//     )
-// };
-
-// export const POSAxiosGet = () => {
-//     const MyAxios = POSAxios()
-//     return (
-//         MyAxios({
-//             method: 'get',
-//         })
-//     )
-// };
-
-
 export const loginAxios = (user, pass) => {
     return (
         axios({
@@ -192,7 +173,6 @@ export const saveNalog = (token, itemId, nalog) => {
 
 export const getNalogList = (token, queryData) => {
     const myAxios = newAxios(token)
-    console.log(queryData)
     return (
         myAxios({
             method: 'get',
@@ -230,6 +210,7 @@ export const otpremnicaAxios = (token) => {
     };
 
     const saveData = (hdrData, otpremnice) => {
+        console.log({hdrData: hdrData, otpremnice: otpremnice})
         return (
             myAxios({
                 method: 'post',
@@ -272,37 +253,37 @@ export const otpremnicaAxios = (token) => {
     }
 };
 
-export const MPAxios = (token) => {
-    const myAxios = newAxios(token);
+// export const MPAxios = (token) => {
+//     const myAxios = newAxios(token);
 
-    const getHeaderData = (kasaId) => {
-        console.log('get header data', kasaId)
-        return(
-            myAxios({
-                method: 'get',
-                url: '/MP/getHeaderData',
-                params: {
-                    kasaId: kasaId
-                }
-            })
-        )
-    };
+//     const getHeaderData = (kasaId) => {
+//         console.log('get header data', kasaId)
+//         return(
+//             myAxios({
+//                 method: 'get',
+//                 url: '/MP/getHeaderData',
+//                 params: {
+//                     kasaId: kasaId
+//                 }
+//             })
+//         )
+//     };
 
-    const saveMPData = (hdrData, MPList) => {
-        return (
-            myAxios({
-                method: 'post',
-                url: '/MP/saveMPData',
-                params: {
-                    hdrData: hdrData,
-                    MPList: MPList,
-                }
-            })
-        )
-    };
+//     const saveMPData = (hdrData, MPList) => {
+//         return (
+//             myAxios({
+//                 method: 'post',
+//                 url: '/MP/saveMPData',
+//                 params: {
+//                     hdrData: hdrData,
+//                     MPList: MPList,
+//                 }
+//             })
+//         )
+//     };
 
-    return ({
-        getHeaderData: getHeaderData,
-        saveMPData: saveMPData
-    })
-};
+//     return ({
+//         getHeaderData: getHeaderData,
+//         saveMPData: saveMPData
+//     })
+// };

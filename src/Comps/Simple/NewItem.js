@@ -12,7 +12,7 @@ import { newAxios } from '../../Misc/MyAxios';
 const NewItem = (props) => {
     const token = props.token;
     const otpremnica = props.otpremnica
-    const ddLabel = (typeof otpremnica.poIzlaznojJM === 'undefined')? '[JM] ': otpremnica.poIzlaznojJM? otpremnica.item.JMIzlaz: otpremnica.item.JMUlaz
+    const ddLabel = (typeof otpremnica.item.id === 'undefined')? '[JM] ': otpremnica.poIzlaznojJM? otpremnica.item.JMIzlaz: otpremnica.item.JMUlaz
     const [validationData, setValidationData] = useState({})
 
     const validateItem = () => {
@@ -37,7 +37,7 @@ const NewItem = (props) => {
         return {ukupno: osnovnaCijena + trosak - rabat}
     };
 
-    //console.log(props.otpremnica)
+    //console.log(props.otpremnica.poIzlaznojJM, ddLabel)
     //console.log(props.customButton)
 
     return (
@@ -45,15 +45,16 @@ const NewItem = (props) => {
             <Alert variant="secondary">
                 <Row>
                     <Col style={{paddingLeft: '0px'}}>
-                        <InputWithAsyncAutocomplete key={otpremnica.item.id}
+                        <InputWithAsyncAutocomplete //key={otpremnica.item.id}
                             selected={Object.keys(otpremnica.item).length? [otpremnica.item]: undefined}
                             asyncInvalid={validationData.itemInvalid}
                             asyncValid={typeof(validationData.itemInvalid)==='undefined'? undefined: !validationData.itemInvalid}
                             placeholder="naziv"
                             prefix="naziv"
-                            suffix={otpremnica.item.id? `${otpremnica.item.kolicina} [${otpremnica.item.JMUlaz}]`: '0 [/]'}
+                            suffix={otpremnica.item.id? `${otpremnica.item.kolicina} [${otpremnica.item.JMIzlaz}]`: '0 [/]'}
                             onSearchHandler={(param, setOptions, setIsLoading)=>itemSearcHandler(newAxios(token), param, setOptions, setIsLoading)}
-                            onSelection={data=> props.updateOtpremnica({...otpremnica, item: itemTransformData(data[0])})}
+                            //onSelection={data=> props.updateOtpremnica({...otpremnica, item: itemTransformData(data[0])})}
+                            onSelection={data=> props.onItemSelection(itemTransformData(data[0]))}
                         />
                         <Form validated={validationData.formValidated}>
                             <FormFieldWithDropdownSuffix
@@ -67,7 +68,7 @@ const NewItem = (props) => {
                                 ddInvalid={validationData.JMNotSelected}
                                 ddLabel={ddLabel}
                                 ddItems={otpremnica.item.id? [{option: 'JMUlaz', label: `${otpremnica.item.JMUlaz} = ${otpremnica.item.JMOdnos}[${otpremnica.item.JMIzlaz}]`}, {option: 'JMIzlaz', label: otpremnica.item.JMIzlaz}]: []}
-                                onSelectDD={data => props.updateOtpremnica({...otpremnica, poIzlaznojJM: data==='JMIzlaz'})}
+                                onSelectDD={data => props.updateOtpremnica({...otpremnica, poIzlaznojJM: data})}
                             />
                             <FormFieldWithPrefix
                                 required

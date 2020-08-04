@@ -4,7 +4,7 @@ export const itemSearcHandler = (myAxios, param, setOptions, setIsLoading) => {
     setIsLoading(true)
     
     myAxios({
-        url: '/inventar/searchItem',
+        url: '/inventar/searchItem/',
         params: {
             naziv: param
         },
@@ -16,6 +16,7 @@ export const itemSearcHandler = (myAxios, param, setOptions, setIsLoading) => {
     .catch(error => console.log(error))
 };
 
+
 export const itemTransformData = (selection) => {
     //console.log(selection)
     if (selection && selection.customOption) {
@@ -23,11 +24,6 @@ export const itemTransformData = (selection) => {
             naziv: selection.naziv,
             new: true,
             tip: 'proizvod',
-            pdvStopa: 17,
-            ziralMP: '',
-            gotovinaMP: '',
-            ziralVP: '',
-            gotovinaVP: '',
             kolicina: 0, 
             JMUlaz: '', 
             JMIzlaz: '', 

@@ -7,8 +7,8 @@ import Row from 'react-bootstrap/Row';
 import OtpremnicaHeader from '../Simple/VPHeader';
 import NewItem from '../Simple/NewItem';
 import ItemList from '../Simple/ItemList';
-import {otpremnicaAxios} from '../../Misc/MyAxios'
-import {getDates, filterData} from '../../Misc/Functions'
+import {otpremnicaAxios, getLastInvBr} from '../../Misc/MyAxios'
+import {getDates, filterData, incrementDocBr} from '../../Misc/Functions'
 
 const Otpremnice = (props) => {
 
@@ -28,7 +28,7 @@ const Otpremnice = (props) => {
     const defOtpremnica = {
         item: {},
         otprKolicina: '',
-        poIzlaznojJM: undefined,
+        poIzlaznojJM: 1,
         osnovnaCijena: '',
         trosak: '',
         rabat: '', 
@@ -42,13 +42,14 @@ const Otpremnice = (props) => {
     const [zavrseno, toggleZavrseno] = useState(false)
     
     const myAxios = otpremnicaAxios(props.token)
-    //console.log(myAxios)
+    console.log(otpremnica)
+    console.log(otpremniceList)
 
     useEffect(() =>{
         myAxios.getData()
         .then(response => hdrUpdate(oldState=>{
             return {
-            ...oldState, ...response.data} }))
+            ...oldState, ...response.data, docBr: incrementDocBr(response.data.docBr)} }))
         .catch(error => console.log(error))
     } ,[]);
 
@@ -94,6 +95,19 @@ const Otpremnice = (props) => {
     
     const deleteCallBack = (idx) => {setOtpremnice((oldItems)=>{oldItems.splice(idx, 1); return [...oldItems]})};
 
+    const onItemSelection = (selectedItem) => { //CallBack za izbor u dropdown menu za NewItem komponentu
+        console.log(selectedItem)
+        if (selectedItem.new) {
+            getLastInvBr(props.token).then( response => {
+                console.log({...selectedItem, invBr: response.data+1})
+				props.itemToStore({...selectedItem, invBr: response.data+1})
+				props.history.push('/')
+			})
+        } else {
+            updateOtpremnica({...otpremnica, item: selectedItem})
+        }
+    };
+
     const buttonStyle = {height:'30px', width:'30px', padding:0};
     const alertStyle= {marginBottom:0, paddingBottom:'4px', paddingTop:'4px'}
 
@@ -116,6 +130,7 @@ const Otpremnice = (props) => {
                 otpremnica={otpremnica}
                 updateOtpremnica={updateOtpremnica}
                 customButton={customButton()}
+                onItemSelection={onItemSelection}
                 onAddCallBack={()=>{
                     setOtpremnice(oldState => {oldState.push(otpremnica); return([...oldState])})
                     updateOtpremnica(defOtpremnica)
@@ -153,4 +168,10 @@ const mapStateToProps = (fromRedux) => {
     return {token: fromRedux.userData.token}
 };
 
-export default connect(mapStateToProps)(Otpremnice);
+const mapDispatchToProps = dispatch => {
+    return {
+        itemToStore: (item) => dispatch({type: 'ITEM_UPDATE', item: item}),
+    };
+   };
+
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Otpremnice));

@@ -19,7 +19,6 @@ import { newAxios } from '../../Misc/MyAxios';
 //import { stringify } from 'querystring';
 
 const Nalozi = (props) => {
-	const token = '1a152f32953361f5f203a7ac68aa6e534498eb5a';
 	const [dPastISOString, dNowISOString] = getDates(1)
 	const headerDefault = {docBr: '', datum: new Date().toJSON().slice(0,10), kolicina: '', napomena: '', status: 0};
 	const [nalog, setNalog] = useState(headerDefault);
@@ -133,7 +132,7 @@ const Nalozi = (props) => {
 							placeholder="izaberi proizvod"
 							selected={item.naziv? [item.naziv]: []}
 							suffix={item.id? `${item.kolicina} [${item.JMIzlaz}]`: '0 [/]'}
-							onSearchHandler={(param, setOptions, setIsLoading)=>itemSearcHandler(newAxios(token), param, setOptions, setIsLoading)}
+							onSearchHandler={(param, setOptions, setIsLoading)=>itemSearcHandler(newAxios(props.token), param, setOptions, setIsLoading)}
 							onSelection={item => onItemSelection(itemTransformData(item[0]))}
 						/>
 					<Form validated={validationData.formValidated}>
@@ -155,7 +154,7 @@ const Nalozi = (props) => {
 				<Col md={6} style={{}}>
 					<FilterMenuCarouesel
 						updateNaloziList={setNaloziList}
-						searchAxios={newAxios(token)}
+						token={props.token}
 					/>
 					{naloziList.length>0 &&
 					<NalogOverview

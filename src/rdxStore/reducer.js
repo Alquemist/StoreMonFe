@@ -1,9 +1,10 @@
 const initialState = {
-    token: '9c700a4d2745506f862ebae29c058250ebad2ded',
     userData: {
         token: "9c700a4d2745506f862ebae29c058250ebad2ded",
         ime: '',
         prezime: '',
+        role: '',
+        settings: {},
     },
     savedData: {
         item: {},

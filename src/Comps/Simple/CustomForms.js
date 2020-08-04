@@ -195,7 +195,7 @@ const FormFieldWithDropdownSuffix =  (props) => {
                                     // const key = Object.keys(ddItem)[0]; const value = Object.values(ddItem)[0];
                                     // console.log(key)
                                     return(
-                                    <Dropdown.Item key={idx} onSelect={() => {console.log(idx); props.onSelectDD(idx)}}>{ddItem.label}</Dropdown.Item>
+                                    <Dropdown.Item key={idx} onSelect={() => props.onSelectDD(idx)}>{ddItem.label}</Dropdown.Item>
                                 )})}
                             </Dropdown.Menu>
                     </Dropdown>
@@ -266,9 +266,9 @@ const DropdownForm = (props) => {
     let tagList = Array(chosenNumber).fill(1).map((_, idx) => {return(idx+1)})
 
     return (
-        <Row>
+        <Row style={style}>
             <Dropdown>
-                <Dropdown.Toggle variant='light'>
+                <Dropdown.Toggle variant='secondary' style={{marginLeft:"10px"}}>
                     {`${props.prefix} ${selection}`}
                 </Dropdown.Toggle>
                 <Dropdown.Menu> 
@@ -280,7 +280,7 @@ const DropdownForm = (props) => {
             </Dropdown>
             {tagList.map((key) => {
                 return (
-                    <InputGroup as={Col} key={key}>
+                    <InputGroup as={Col} key={key} style={{paddingRight: "0", paddingLeft:'0'}}> 
                         <InputGroup.Prepend>
                         <InputGroup.Text >{`d${key}`}</InputGroup.Text>
                         </InputGroup.Prepend>

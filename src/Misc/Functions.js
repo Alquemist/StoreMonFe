@@ -14,19 +14,17 @@ const filterData = (obj, keyList) => {
 };
 
 const toNum = (txt) => {
-  //console.log(txt)
+  //console.log(typeof(txt))
   let rez = []
   txt.split(',').forEach(subStr=>{
       subStr.split('.').forEach(subStr=>{subStr[0] && rez.push(subStr)})
   })
-  //console.log(rez)
   if (rez.length > 1) {
       rez = Number(`${rez.slice(0,-1).join('')}.${rez.slice(-1)}`)
   }
   else {
       rez = rez.length? Number(rez): NaN
   }
-  //console.log(rez)
   return (rez)
 };
 
@@ -54,7 +52,16 @@ const getDates = (deltaMonths) => {
 	dPast.setMonth(dPast.getMonth() - deltaMonths)
     dPast = dPast.toISOString().split("T")[0];
     return [dPast, dNow]
-}; 
+};
+
+const incrementDocBr = (docBr) => {
+    let docBrArr = []
+    if (docBr) {
+        docBrArr = docBr.split('/');
+        docBrArr[docBrArr.length-1] = Number(docBrArr[docBrArr.length-1])+1 //inkrementira poslednji br za +1
+    }
+    return docBrArr.join('/')
+}
 
 
-export {areSame, filterData, toNum, invBrValidation, sorter, getDates, };
+export {areSame, filterData, toNum, invBrValidation, sorter, getDates, incrementDocBr, };

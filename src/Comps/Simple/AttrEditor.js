@@ -17,16 +17,15 @@ class FormGroup extends Component {
         neChecked: this.props.attr.vrijednost === '0',
         };
 
-    onAttrChange = (event) => {
-        const target = {id: event.target.id, value: event.target.value}
-            this.setState((oldState) => {
-                oldState.attr[target.id] = target.value
-                return {
-                buttonDisabled: !(oldState.attr.naziv && oldState.attr.vrijednost),
-                daChecked: oldState.attr.vrijednost === '1',
-                neChecked: oldState.attr.vrijednost === '0',
+    onAttrChange = (attrUpdate) => {
+        console.log(attrUpdate)
+        const newAttr = {...this.state.attr, ...attrUpdate}
+            this.setState(
+                {
+                    attr: newAttr,
+                    buttonDisabled: !(newAttr.naziv && newAttr.vrijednost)
                 }
-            })
+            )
         };
 
     attrTypeChanger = (event) => {
@@ -49,24 +48,24 @@ class FormGroup extends Component {
 
         dynElem = () => (
             this.state.attr.tip === "bool" ?
-            <div onChange={(event) => this.onAttrChange(event, this.state.attr.id)}>
+            <div onChange={(event) => this.onAttrChange({vrijednost: event.target.value})}>
                 <Form.Check id="vrijednost" inline label="Da" value={1} type="radio" name="radioOPs" defaultChecked={this.state.daChecked}/>
                 <Form.Check id="vrijednost" inline label="Ne" value={0} type="radio" name="radioOPs" defaultChecked={this.state.neChecked}/>
             </div>
             :
-            <Form.Control id="vrijednost" md="4" type="text" placeholder="vrijednost" value={this.state.attr.vrijednost} onChange={(event) => this.onAttrChange(event, this.props.attr.id)}/>
+            <Form.Control md="4" type="text" placeholder="vrijednost" value={this.state.attr.vrijednost} onChange={(event) => this.onAttrChange({vrijednost: event.target.value})}/>
         );
 
 
     render() {
-        // console.log(this.state.attr)
+        console.log(this.state.attr)
         // console.log(this.props)
 
         return(
             <Form.Group as={Row}>
             
                 <Col md="4">
-                    <Form.Control id="nazivAttr" type="text" placeholder="naziv" defaultValue={this.state.attr.naziv} onChange={(event) => this.onAttrChange(event, this.props.attr.id)}/>
+                    <Form.Control type="text" placeholder="naziv" defaultValue={this.state.attr.naziv} onChange={(event) => this.onAttrChange({naziv: event.target.value})}/>
                 </Col>
                 <Col md="3">
                     <Form.Control id="tip" as="select"  onChange={this.attrTypeChanger} defaultValue={this.state.attr.tip}>

@@ -6,7 +6,7 @@ import NewItem from '../Simple/ZaprimkaNewItem';
 import ItemList from '../Simple/ItemList';
 
 import {zaprimkaAxios, getLastInvBr} from '../../Misc/MyAxios';
-import {filterData} from '../../Misc/Functions'
+import {filterData, incrementDocBr} from '../../Misc/Functions'
 
 let itemIds = []
 
@@ -48,7 +48,7 @@ const Zaprimka = (props) => {
                 dobavljac: response.data.dobavljaci.length? response.data.dobavljaci[response.data.dobavljaci.length-1]: '',
                 placanja: response.data.placanja.length? response.data.placanja: [],
                 placanje: response.data.placanja.length? response.data.placanja[response.data.placanja.length-1]: '',
-                docBr: response.data.docBr? response.data.docBr: '',
+                docBr: incrementDocBr(response.data.docBr),
              })
         })},[])
 

@@ -16,7 +16,6 @@ import {itemSearcHandler, itemTransformData} from '../../Misc/AsyncHandlers';
 
 const SpecProizvodnje = (props) => {
 
-    const token = '1a152f32953361f5f203a7ac68aa6e534498eb5a';
     const specsDefault = {materijal: undefined, dimenzije: [], JM: ' ', kolicina: undefined, ostatak: undefined, ukupanUtrosak: undefined, napomena: undefined, new: true,}
     const validationDefault = {validated: false, proizvodInvalid: undefined, materijalInvalid: undefined, utrosakInvalid: undefined}
     const [validationData, setValidationData] = useState(validationDefault)
@@ -29,7 +28,6 @@ const SpecProizvodnje = (props) => {
     let matSuffix
 
     const onProizvodSelection = (selectedItem) => {
-        console.log(selectedItem)
         if (selectedItem.new) {
             getLastInvBr(props.token).then( response => {
                 props.itemToStore({...selectedItem, invBr: response.data+1})
@@ -60,7 +58,12 @@ const SpecProizvodnje = (props) => {
     };
 
     const onDodajCallBack = () => {
-        const utrosak = specs.ukupanUtrosak && toNum(specs.ukupanUtrosak)
+        let utrosak
+        if (typeof(specs.ukupanUtrosak)==='number') {
+             utrosak = specs.ukupanUtrosak;
+        } else {
+            utrosak = toNum(utrosak);
+        };
         const utrosakInvalid = utrosak? false: true
         const materijalInvalid = specs.materijal? false: true
         const proizvodInvalid = Object.keys(item).length? false: true
@@ -94,7 +97,6 @@ const SpecProizvodnje = (props) => {
         !spec.new && setDelSpecs(oldState => {oldState.push(spec.id); return ([...oldState])})
     };
 
-    //console.log(delSpecs)
     //console.log(validationData)
     return (
         <>  
@@ -104,10 +106,10 @@ const SpecProizvodnje = (props) => {
                         <InputWithAsyncAutocomplete
                             asyncInvalid={validationData.proizvodInvalid}
                             prefix="Proizvod:"
-                            placeholder="Izaber proizvod"
+                            placeholder="Izaberi proizvod"
                             suffix={itemSuffix}
                             isInvalid={validationData.proizvodInvalid}
-                            onSearchHandler={(param, setOptions, setIsLoading)=>itemSearcHandler(newAxios(token), param, setOptions, setIsLoading)}
+                            onSearchHandler={(param, setOptions, setIsLoading)=>itemSearcHandler(newAxios(props.token), param, setOptions, setIsLoading)}
                             onSelection={selectedItem=>onProizvodSelection(itemTransformData(selectedItem[0]))}
                             itemToStore={props.itemToStore}
                         />
@@ -127,7 +129,7 @@ const SpecProizvodnje = (props) => {
                         prefix="Materijal"
                         placeholder="izaberi materijal"
                         suffix={matSuffix}
-                        onSearchHandler={(param, setOptions, setIsLoading)=>itemSearcHandler(newAxios(token), param, setOptions, setIsLoading)}
+                        onSearchHandler={(param, setOptions, setIsLoading)=>itemSearcHandler(newAxios(props.token), param, setOptions, setIsLoading)}
                         onSelection={materijal => onMaterijalSelection(itemTransformData(materijal[0]))}
                         itemToStore={props.itemToStore}
                     />
@@ -135,7 +137,7 @@ const SpecProizvodnje = (props) => {
                         <DropdownForm
                             options={['1D', '2D', '3D' ]}
                             id='dimenzije'
-                            prefix='Dimenzije'
+                            prefix=''
                             onChange={(value, idx) => setSpecs((oldSpecs) => {oldSpecs.dimenzije[idx]=value; return {...oldSpecs}})}
                         />
                         <FormFieldWithPrefix
@@ -188,7 +190,7 @@ const SpecProizvodnje = (props) => {
 };
 
 const mapStateToProps = (fromRedux) => {
-    return {token: fromRedux.token,}
+    return {token: fromRedux.userData.token,}
 };
 
 const mapDispatchToProps = dispatch => {

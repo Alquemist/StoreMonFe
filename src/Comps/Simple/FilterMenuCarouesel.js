@@ -5,12 +5,11 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import {FormFieldWithPrefix, InputWithAsyncAutocomplete} from './CustomForms'
-import {getNalogList} from '../../Misc/MyAxios';
+import {newAxios, getNalogList} from '../../Misc/MyAxios';
 import {getDates} from '../../Misc/Functions';
 import {itemSearcHandler, itemTransformData} from '../../Misc/AsyncHandlers'
 
 const FilterMenuCarouesel = (props) => {
-    
     const [dPast, dNow] = getDates(1)
     const [activeIndex, setIndex] = useState(1)
     const [showFilterMany, toggleFilterMany] = useState(false)
@@ -70,7 +69,7 @@ const FilterMenuCarouesel = (props) => {
                     <InputWithAsyncAutocomplete style={{}}
                         prefix="Naziv"
                         placeholder="pretraga po nazivu ili invBr"
-                        onSearchHandler={(param, setOptions, setIsLoading)=>itemSearcHandler(props.searchAxios, param, setOptions, setIsLoading)}
+                        onSearchHandler={(param, setOptions, setIsLoading)=>itemSearcHandler(newAxios(props.token), param, setOptions, setIsLoading)}
                         onSelection={item => onFindCallback({item: itemTransformData(item[0]).invBr})} 
                     />
                 </Carousel.Item>
@@ -88,7 +87,7 @@ const FilterMenuCarouesel = (props) => {
                         size="sm"
                         onClick={()=>{if (activeIndex===0) {setIndex(1); onFindCallback(params)} else {setIndex(0)} }}
                         >
-                        >>
+                        {'>>'}
                     </Button>
                 </Col>
             </Row>
