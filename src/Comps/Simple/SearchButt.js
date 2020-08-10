@@ -59,7 +59,7 @@ const SearchButt = (props) => {
             };
         
             myAxios({
-                url: '/atributi/getattribs',
+                url: '/atributi/getattribs/',
                 params: {
                     itemID: item.id
                 }

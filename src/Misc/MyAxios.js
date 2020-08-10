@@ -15,7 +15,7 @@ export const loginAxios = (user, pass) => {
         axios({
             method: "post",
             url: "http://localhost:8000/gettoken/",
-            data: {username: user, password: pass}
+            data: {username: 'admin', password: 'Vrbanja_01'}
         })
     )
 };

@@ -1,9 +1,9 @@
 const initialState = {
     userData: {
-        token: "9c700a4d2745506f862ebae29c058250ebad2ded",
+        token: '',
         ime: '',
         prezime: '',
-        role: '',
+        permissions: [],
         settings: {},
     },
     savedData: {
@@ -19,6 +19,11 @@ const reducer = (state = initialState, args) => {
         case 'SET_USERDATA': return {
             ...state,
             userData: {...state.userData, ...args.userData}
+        };
+
+        case 'CLEAR_USERDATA': return {
+            ...state,
+            userData: {...initialState.userData}
         };
         // case 'ITEM_SELECTION':{
         //     //console.log(state)
@@ -52,13 +57,6 @@ const reducer = (state = initialState, args) => {
             return {
                 ...state,
                 savedData: savedData
-            }
-        };
-
-        case 'SET_USER': {
-            return {
-                ...state,
-                userData: {...args.userData},
             }
         };
 

@@ -6,8 +6,11 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import {connect} from 'react-redux';
 import {loginAxios} from '../../Misc/MyAxios';
+import * as myDBApi from '../../Misc/IDB_Handlers';
 
 const ChangeNalogStatusModal = (props) => {
+
+    console.log(myDBApi.getUserData())
 
     return (
         <Modal show={props.show} onHide={props.onCloseCallback}>
@@ -29,28 +32,43 @@ const ChangeNalogStatusModal = (props) => {
 
 const LoginModal = (props) => {
 
-    const defCredentials = {username: '', pass: ''}
-    const [credentials, setCredentials] = useState(defCredentials)
-    const style = {marginBottom:'5px'}
-    const [loginInvalid, setLoginInvalid] = useState(false)
+    const defCredentials = {username: '', pwd: ''};
+    const [credentials, setCredentials] = useState(defCredentials);
+    const style = {marginBottom:'5px'};
+    const [isInvalid, setInvalid] = useState({username: false, pwd: false});
+    const [loginFailed, setLoginFailed] = useState();
 
     const onLoginCallBack = () => {
-        //console.log(credentials)
-        loginAxios(credentials.username, credentials.pass)
+
+        let usernameInvalid = !credentials.username
+        let pwdInvalid = !credentials.pwd
+
+        if (usernameInvalid||pwdInvalid){
+            setInvalid({username: usernameInvalid, pwd: pwdInvalid})
+            return
+        };
+
+        loginAxios(credentials.username, credentials.pwd)
         .then(res => {
             console.log(res.data);
             props.onSetToken(res.data)
+            myDBApi.storeUserData(res.data)
         })
-        .catch(err => { 
-            if (err.response.status === 400) {
-                setLoginInvalid(true)
-            }
+        .catch(err => {
+            console.log(err)
+            setLoginFailed(true)
         })
     };
-    //console.log(style)
+
+    const onKeyUp = (event) => {
+        if (event.keyCode === 13) {
+            onLoginCallBack()
+        }
+    };
+    console.log(isInvalid.pwd)
     return (
         <Modal show={true} dialogClassName="modal-90w" onHide={()=>{}}>
-            <Modal.Header className="justify-content-md-center">
+            <Modal.Header className="justify-content-md-center" style={{background: '#e2e3e5'}}>
                     <Col xs lg="2"></Col>
                     <Col md="auto">
                         <h4 style={{color: '#6c757d'}}>Unesite svoje kredencijale</h4>
@@ -59,13 +77,30 @@ const LoginModal = (props) => {
             </Modal.Header>
             <Modal.Body>
                 <Col>
-                    <Form.Control required size="lg" isInvalid={loginInvalid} type="text" placeholder="Korisničko ime" value={credentials.username} style={style} onChange={event=>setCredentials({...credentials, username: event.target.value})}/>
-                    {credentials.username? null: <Form.Control.Feedback type="invalid">Unesite korisničko ime</Form.Control.Feedback>}
+                    <Form.Control size="lg" style={style}
+                        required 
+                        isInvalid={isInvalid.username}
+                        type="text"
+                        placeholder="Korisničko ime"
+                        value={credentials.username} 
+                        onChange={event=>setCredentials({...credentials, username: event.target.value})}
+                        onKeyUp={onKeyUp}
+                    />
+                    <Form.Control.Feedback type="invalid">Unesite korisničko ime</Form.Control.Feedback>
                 </Col>
                 
                 <Col>
-                    <Form.Control size="lg" isInvalid={loginInvalid} type="password" placeholder="Lozinka" value={credentials.pass} style={style} onChange={event=>setCredentials({...credentials, pass: event.target.value})}/>
-                    <Form.Control.Feedback type="invalid">Pogrešni kredencijali</Form.Control.Feedback>
+                    <Form.Control size="lg" style={style} 
+                        isInvalid={isInvalid.pwd || loginFailed}
+                        type="password"
+                        placeholder="Lozinka"
+                        value={credentials.pwd}
+                        onChange={event=>setCredentials({...credentials, pwd: event.target.value})}
+                        onKeyUp={onKeyUp}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {isInvalid.pwd? 'Unesite Lozinku': 'Prijava neuspješna'} 
+                    </Form.Control.Feedback>
                 </Col>
                 <Col>
                     <Row className="justify-content-md-center">

@@ -185,7 +185,6 @@ const mapStateToProps = (fromRedux) => {
 
 const mapDispatchToProps = dispatch => {
  return {
-     onSetToken: (token) => dispatch({type: 'SET_TOKEN', token: token}),
      selectionToStore: (item, attribs) => dispatch({type: 'ITEM_SELECTION', item: item, attribs: attribs}),
      attribsToStore: (attribs) => dispatch({type: 'ATTR_UPDATE', attribs: attribs}),
      itemToStore: (item) => dispatch({type: 'ITEM_UPDATE', item: item}),
