@@ -42,8 +42,8 @@ const Otpremnice = (props) => {
     const [zavrseno, toggleZavrseno] = useState(false)
     
     const myAxios = otpremnicaAxios(props.token)
-    console.log(otpremnica)
-    console.log(otpremniceList)
+    // console.log(otpremnica)
+    // console.log(otpremniceList)
 
     useEffect(() =>{
         myAxios.getData()
@@ -51,7 +51,7 @@ const Otpremnice = (props) => {
             return {
             ...oldState, ...response.data, docBr: incrementDocBr(response.data.docBr)} }))
         .catch(error => console.log(error))
-    } ,[]);
+    },[myAxios]);
 
     const validateHeader = () => {
         const mjestoInvalid = !hdrData.mjesto
@@ -66,6 +66,7 @@ const Otpremnice = (props) => {
             .then(() => {
                 updateOtpremnica(defOtpremnica);
                 setOtpremnice([]);
+                hdrUpdate({...hdrData, docBr: incrementDocBr(hdrData.docBr)})
                 toggleZavrseno(false)
             })
             .catch(error=> {

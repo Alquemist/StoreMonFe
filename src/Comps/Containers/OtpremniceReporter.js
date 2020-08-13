@@ -8,8 +8,6 @@ import { newAxios } from '../../Misc/settings';
 import { otpremnicaAxios } from '../../Misc/MyAxios';
 import {InputWithAsyncAutocomplete, FormFieldWithPrefix} from '../Simple/CustomForms'
 import { getDates, sorter } from '../../Misc/Functions';
-import Table from 'react-bootstrap/Table'
-import CustomHeader from '../Simple/CustomTableHeader';
 import ItemList from '../Simple/ItemList'
 import ObjectListTable from '../Simple/ObjectListTable';
 import {connect} from 'react-redux';

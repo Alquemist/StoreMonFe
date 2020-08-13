@@ -8,9 +8,38 @@ import {connect} from 'react-redux';
 import {loginAxios} from '../../Misc/MyAxios';
 import * as myDBApi from '../../Misc/IDB_Handlers';
 
-const ChangeNalogStatusModal = (props) => {
 
-    console.log(myDBApi.getUserData())
+const ConfirmDelete = (props) => {
+
+    // const style = {  //On top center horizontally
+    //     position: 'absolute',
+    //     zIndex: 10,
+    //     left: 0,
+    //     right: 0,
+    //     marginLeft: 'auto',
+    //     marginRight: 'auto',
+    //     width: '50%'};
+
+    return (
+        <Modal.Dialog>
+            <Modal.Header closeButton>
+                <Modal.Title>Da li ste sigurni?</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+                <p>Ovo će izbrisati sve podatke vezane za ovaj artikal</p>
+            </Modal.Body>
+
+            <Modal.Footer>
+                <Button variant="secondary" onClick={props.onNazad}>Nazad</Button>
+                <Button variant="danger" onClick={props.onDelete}>Obriši</Button>
+            </Modal.Footer>
+        </Modal.Dialog>
+    );
+};
+
+
+const ChangeNalogStatusModal = (props) => {
 
     return (
         <Modal show={props.show} onHide={props.onCloseCallback}>
@@ -127,4 +156,4 @@ const mapDispatchToProps = dispatch => {
 
 const connectedLoginModal = connect(null, mapDispatchToProps)(LoginModal)
 
-export {ChangeNalogStatusModal, connectedLoginModal as LoginModal};
+export {ChangeNalogStatusModal, connectedLoginModal as LoginModal, ConfirmDelete};

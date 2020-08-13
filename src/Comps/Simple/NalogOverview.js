@@ -14,7 +14,7 @@ const NalogOverview = (props) => {
     const CustomDropDown = (myProps) => {
         //console.log(props.nalog)
         const statusDict = props.statusDict
-        //console.log(myProps.nalog.status)
+        //console.log(statusDict)
         return(
             <Dropdown>
                 <Dropdown.Toggle variant="outline-secondary" style={{width:'100%', height: '100%'}}>{statusDict[myProps.nalog.status]}</Dropdown.Toggle>

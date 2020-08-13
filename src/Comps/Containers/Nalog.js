@@ -12,7 +12,7 @@ import {ChangeNalogStatusModal} from '../Simple/Modals'
 import FilterMenuCarouesel from '../Simple/FilterMenuCarouesel'
 import {InputWithAsyncAutocomplete, FormFieldWithPrefix, TextBox} from '../Simple/CustomForms';
 import {getLastInvBr, saveNalog, getSpecs, getNalogList, updateNalogStatus} from '../../Misc/MyAxios';
-import {filterData, getDates} from '../../Misc/Functions';
+import {filterData, getDates, incrementDocBr} from '../../Misc/Functions';
 import {itemSearcHandler, itemTransformData} from '../../Misc/AsyncHandlers';
 import { newAxios } from '../../Misc/MyAxios';
 
@@ -28,7 +28,7 @@ const Nalozi = (props) => {
 	const [naloziList, setNaloziList] = useState([])
 	const [showModal, toggleModal] = useState(false)
 	const [nalogUpdateData, setNalogUpdateData] = useState({nalogIdx:'', newState:''})
-	const [statsusDict, setStatusDict] = useState({})
+	const [statusDict, setStatusDict] = useState({})
 
 	const onItemSelection = (selectedItem) => {
 		console.log(selectedItem)
@@ -50,8 +50,9 @@ const Nalozi = (props) => {
 	useEffect(()=>{
 		getNalogList(props.token, {dates: [dPastISOString, dNowISOString]})
 		.then(response => {
-			setNaloziList(response.data.naloziList)
-			setStatusDict(response.data.statusDict)
+			setStatusDict(response.data.statusDict);
+			setNaloziList(response.data.naloziList);
+			setNalog({...nalog, docBr: incrementDocBr(response.data.docBr)})
 		})
 		.catch(error => console.log(error))
 		}, []);
@@ -63,10 +64,10 @@ const Nalozi = (props) => {
 		
 		if (itemValid&&formValid) {
 			saveNalog(props.token, item.id, nalog)
-			.then(()=>{
-				setNalog({...headerDefault, docBr: nalog.docBr})
+			.then((response)=>{
+				setNalog({...headerDefault, docBr: incrementDocBr(nalog.docBr)})
 				setItem({})
-				setNaloziList(oldList=>{oldList.push({...nalog, naziv: item.naziv}); return([...oldList])})
+				setNaloziList(oldList=>{oldList.push({...nalog, id:response.data, naziv: item.naziv}); return([...oldList])})
 				setValidation({formValidated: false, itemInvalid:false})
 			})
 			.catch(error => {
@@ -90,6 +91,7 @@ const Nalozi = (props) => {
 				oldList[nalogUpdateData.nalogIdx].status = nalogUpdateData.newStatus
 				return([...oldList])
 			});
+			setNalog({...nalog, docBr: incrementDocBr(nalog.docBr)})
 			toggleModal(false)
 		})
 		.catch(error => console.log(error))
@@ -102,7 +104,7 @@ const Nalozi = (props) => {
 	};
 
 	const buttonList = [{buttonLabel: "Izmjeni", buttonCallBack: ()=>{}, buttonVariant: "outline-dark"},];
-	console.log(item)
+	//console.log(item)
 	return (
 		<>
 		<ChangeNalogStatusModal show={showModal} onCloseCallback={()=>toggleModal(false)} onSaveCallback={onModalSave}/>
@@ -159,7 +161,7 @@ const Nalozi = (props) => {
 					{naloziList.length>0 &&
 					<NalogOverview
 						naloziList={naloziList}
-						statusDict={statsusDict}
+						statusDict={statusDict}
 						onNalogStatusChange={onNalogStatusChange}
 						onChoseColumn={data => console.log(data)}/> }
 				</Col>

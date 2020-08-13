@@ -3,13 +3,11 @@ import {connect} from 'react-redux';
 
 import {CreateAxiosMethods} from '../../Misc/MyAxios';
 import {areSame, filterData} from '../../Misc/Functions';
-// import {itemSearcHandler, itemTransformData} from '../../Misc/AsyncHandlers';
-// import { newAxios } from '../../Misc/settings';
+import {ConfirmDelete} from '../Simple/Modals';
 
 import ItemReport from '../Simple/ItemReport';
 import AttrEditor from '../Simple/AttrEditor';
 import SearchButt from '../Simple/SearchButt';
-// import {InputWithAsyncAutocomplete} from '../Simple/CustomForms';
 import Alert from 'react-bootstrap/Alert';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -28,6 +26,7 @@ const Evidencija = (props) => {
     };
     
     const [state, setState] = useState(initState);
+    const [modalActive, setModal] = useState(false);
 
     useEffect (() => {
         setState({
@@ -54,7 +53,10 @@ const Evidencija = (props) => {
         else {
             myAxiosMethods.deleteItem(state.item.id)
             .then((response) =>{
-                (response.status === 200) && setState({...state, item: {}, newAttribs: [], sacuvajDisabled: true})
+                if (response.status === 200) {
+                    setState({...state, item: {}, newAttribs: [], sacuvajDisabled: true});
+                    setModal(false);
+                }
             })
         };
     };
@@ -139,7 +141,12 @@ const Evidencija = (props) => {
     // .then(data=>console.log(data))
     // .catch(err=>console.log(err))
     return (
-        <div>
+        modalActive?
+        <ConfirmDelete
+            onNazad={()=>setModal(false)}
+            onDelete={deleteItemCallback}
+        />
+        :<div>
             <Alert variant="secondary" style={{marginBottom: '8px'}}>
                 <Form.Group as={Row}>
                     <Col md="4">
@@ -160,7 +167,7 @@ const Evidencija = (props) => {
                     invBrEdited={state.invBrEdited}
                     setInvEdited={()=> {!state.invBrEdited && setState({...state, invBrEdited: true})}}
                     // onItemChange={onItemChange}
-                    deleteItemCallback={deleteItemCallback}
+                    deleteItemCallback={()=>setModal(true)}
                     toggleSacuvaj={buttonDisabled=>partialStateUpdate({sacuvajDisabled: buttonDisabled})}
                 />
                 

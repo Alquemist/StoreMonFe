@@ -29,9 +29,6 @@ const MainWin = (props) => {
             </>
         );
     
-    console.log(isLoading)
-    console.log(props.token)
-    
     isLoading && getUserData()
         .then(userData => {
             props.setUserData(userData)

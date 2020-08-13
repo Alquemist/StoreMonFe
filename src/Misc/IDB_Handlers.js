@@ -10,7 +10,7 @@ db.version(4).stores({
 
 export const getUserData = async () => {
   const userData = await db.userData.toArray()
-  console.log(userData[0])
+  //console.log(userData[0])
   return userData[0]
 };
 

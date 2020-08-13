@@ -60,7 +60,7 @@ export const CreateAxiosMethods = (token) => {
             myAxios({
                 method: 'delete',
                 url: `/inventar/deleteItem/`,
-                data: itemId
+                data: {id: itemId}
             })
         )
     };

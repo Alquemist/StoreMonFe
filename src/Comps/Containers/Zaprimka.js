@@ -42,12 +42,6 @@ const Zaprimka = (props) => {
             hdrStateUpdate({
                 ...hdrState,
                 ...response.data,
-                mjesta: response.data.mjesta.length? response.data.mjesta: [],
-                mjesto: response.data.mjesta.length? response.data.mjesta[response.data.mjesta.length-1]: '',
-                dobavljaci: response.data.dobavljaci.length? response.data.dobavljaci: [],
-                dobavljac: response.data.dobavljaci.length? response.data.dobavljaci[response.data.dobavljaci.length-1]: '',
-                placanja: response.data.placanja.length? response.data.placanja: [],
-                placanje: response.data.placanja.length? response.data.placanja[response.data.placanja.length-1]: '',
                 docBr: incrementDocBr(response.data.docBr),
              })
         })},[])
@@ -113,14 +107,17 @@ const Zaprimka = (props) => {
                 },
                 items: items
             })
-            .then(() => {
-                    itemIds = []
-                    setItems([])
-                    setItem({...defaultItemState})
-                    hdrStateUpdate(defaultHdrState)
-                    setValidationData({formValidated: false, nazivInvalid: undefined})
-                    setFieldValidations({mjesto: undefined, dobavljac: undefined})
-                })
+            .then(()=>{
+                hdrStateUpdate({
+                    ...defaultHdrState,
+                    docBr: incrementDocBr(hdrState.docBr),
+                    })
+                itemIds = []
+                setItems([])
+                setItem({...defaultItemState})
+                setValidationData({formValidated: false, nazivInvalid: undefined})
+                setFieldValidations({mjesto: undefined, dobavljac: undefined})
+            })
             .catch(error => console.log(error))
         }
         else {
