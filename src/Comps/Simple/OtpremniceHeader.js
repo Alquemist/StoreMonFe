@@ -73,6 +73,7 @@ const otpremnicaHeader = (props) => {
                 <TexBoxtWithPrefix
                     id='napomena'
                     prefix='Napomena'
+                    value={props.hdrData.napomena}
                     onChange={props.onChange}
                 />
             </Col>

@@ -237,23 +237,23 @@ export const RadiosWithPrefix = (props) => {
     )
 };
 
-export const TextBox = (props) => {
-    return (
-        <Form.Group as={Row} style={rowStyle}>
-            <InputGroup > 
-                <InputGroup.Prepend as={Col} xs='3' style={{paddingRight: "0", borderRight:"0", marginRight:'0'}}>
-                    <InputGroup.Text style={{width:'100%'}}>Napomena</InputGroup.Text>
-                </InputGroup.Prepend>
-                <Col style={{'paddingLeft': 0, 'paddingRight': 0}}>
-                    <Form.Control as="textarea"
-                        onChange={event => props.onChange(event.target.value)}
-                        value={props.value}
-                    />
-                </Col>
-            </InputGroup>
-        </Form.Group>
-    )
-};
+// export const TextBox = (props) => {
+//     return (
+//         <Form.Group as={Row} style={rowStyle}>
+//             <InputGroup > 
+//                 <InputGroup.Prepend as={Col} xs='3' style={{paddingRight: "0", borderRight:"0", marginRight:'0'}}>
+//                     <InputGroup.Text style={{width:'100%'}}>Napomena</InputGroup.Text>
+//                 </InputGroup.Prepend>
+//                 <Col style={{'paddingLeft': 0, 'paddingRight': 0}}>
+//                     <Form.Control as="textarea"
+//                         onChange={event => props.onChange(event.target.value)}
+//                         value={props.value}
+//                     />
+//                 </Col>
+//             </InputGroup>
+//         </Form.Group>
+//     )
+// };
 
 export const DropdownForm = (props) => {
 
@@ -300,6 +300,7 @@ export const TexBoxtWithPrefix = (props) => {
                     <InputGroup.Text className={"text-justify"} as={Col} style={{paddingLeft: 4, paddingRight: 4}}>{props.prefix}</InputGroup.Text>
                 </InputGroup.Prepend>
                 <Form.Control as="textarea" style={{fontSize: '16px', paddingRight:'0px'}}
+                    value={props.value}
                     onChange={(event)=>props.onChange({[props.id]: event.target.value})}
                 >
                 </Form.Control>

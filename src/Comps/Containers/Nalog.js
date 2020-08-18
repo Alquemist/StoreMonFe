@@ -149,12 +149,13 @@ const Nalozi = (props) => {
 						<TexBoxtWithPrefix
 							id='napomena'
 							prefix='Napomena'
+							value={nalog.napomena}
 							onChange={newData => setNalog({...nalog, ...newData})}
 						/>
 					</Form>
 					<Button variant="outline-dark" onClick={saveCallBack}>Sačuvaj</Button>
 				</Col>
-				<Col md={6}>
+				<Col md={6} style={{maxHeight: specList.length? '70vh': '100vh', overflowY:'auto'}}>
 					<FilterMenuCarouesel
 						updateNaloziList={setNaloziList}
 						token={props.token}
@@ -171,10 +172,13 @@ const Nalozi = (props) => {
 				specList.map((spec, idx) => {
 					//console.log(idx)
 					return (
-						<ItemList key={idx}
-							item={filterData(spec, ['materijalId', 'new', 'id'])}
-							buttonList={buttonList}
-						/>
+						<div style={{paddingTop: '8px'}}>
+							<ItemList key={idx}
+								item={filterData(spec, ['materijalId', 'new', 'id'])}
+								buttonList={buttonList}
+							/>
+						</div>
+						
 					)
 				}
 			)

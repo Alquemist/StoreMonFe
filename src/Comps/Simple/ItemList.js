@@ -15,7 +15,7 @@ const itemList = (props) => {
     });
 
     return (
-        <Table responsive striped bordered hover style={{margin:0}}>
+        <Table responsive striped bordered hover>
             <tbody>
                 <tr>
                     {tblHeaders}
