@@ -12,6 +12,9 @@ const newItem = (props) => {
     //console.log(props.item)
     //console.log(props.item.naziv? [props.item.naziv]: '')
     const ddLabel = (typeof props.item.poUlaznojJM === 'undefined')? '[JM] ': props.item.poUlaznojJM? props.item.JMUlaz: props.item.JMIzlaz
+    const ddOptions = props.item.id?
+        [{option: {poUlaznojJM: true}, label: `${props.item.JMUlaz} = ${props.item.JMOdnos}[${props.item.JMIzlaz}]`}, {option: {poUlaznojJM: false}, label: props.item.JMIzlaz}]
+        :[];
 
     const recalculateAndSetItem = (newData) => {
         const newState = {...props.item, ...newData}
@@ -23,9 +26,9 @@ const newItem = (props) => {
 
     return (
         <div>
-            <Alert variant="secondary">
-                <Row>
-                    <Col style={{paddingLeft: '0px'}}>
+            <Alert variant="secondary" style={{padding: '5px', margin: 0}}>
+                <Row className='no-gutters'>
+                    <Col style={{paddingRight: '5px'}}>
                         <InputWithAsyncAutocomplete //key={props.item.id}
                             selected={props.item.naziv? [props.item.naziv]: []}
                             asyncInvalid={props.validationData.nazivInvalid}
@@ -46,9 +49,9 @@ const newItem = (props) => {
                                 value={props.item.zapKolicina}
                                 onChange={props.setItem}
                                 ddLabel={ddLabel}
-                                ddItems={props.item.id? [{option: 'JMUlaz', label: `${props.item.JMUlaz} = ${props.item.JMOdnos}[${props.item.JMIzlaz}]`}, {option: 'JMIzlaz', label: props.item.JMIzlaz}]: []}
+                                ddItems={ddOptions}
                                 ddInvalid={props.validationData.poUlaznojJMInvalid}
-                                onSelectDD={selection => props.setItem({poUlaznojJM: selection==='JMUlaz'})}
+                                onSelectDD={props.setItem}//props.setItem({poUlaznojJM: selection==='JMUlaz'})}
                             />
                             <FormFieldWithPrefix
                                 required
@@ -61,7 +64,7 @@ const newItem = (props) => {
                             />
                         </Form>
                     </Col>
-                    <Col>
+                    <Col style={{paddingLeft: '5px'}}>
                         <FormFieldWithPrefix
                             prefix = 'trošak'
                             id='trosak'
@@ -79,7 +82,7 @@ const newItem = (props) => {
                             value={props.item.ukupno}
                             disabled
                         />
-                        <Row>
+                        <Row className='no-gutters'>
                             <Col className="float-right">
                                 <Button md="2" variant="outline-danger" onClick={props.onSaveCallback} disabled={props.saveButtonDisabled}>Sačuvaj</Button>
                             </Col>

@@ -49,7 +49,7 @@ const NalogOverview = (props) => {
 
     const style = {
 		position: 'relative',
-		height: '50vh',
+		//height: '50vh',
 		overflowY: 'auto',
 		fontSize: '12px',
 		}

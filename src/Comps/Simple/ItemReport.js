@@ -14,7 +14,6 @@ let rerender = {
 };
 
 const ItemReporter = (props) => {
-
     
     const requiredFields = ['naziv', 'invBr', 'JMUlaz', 'JMIzlaz', 'JMOdnos']
     const states = [{buttonTag: 'Izmjeni', formDisabled: true}, {buttonTag: 'Završi', formDisabled: false}]
@@ -103,7 +102,7 @@ const ItemReporter = (props) => {
                     value={props.item.invBr}
                     onChange={(newData)=>{props.setInvEdited(); props.updateItem(newData)}}
                 />
-                <FormFieldWithPrefix
+                <FormFieldWithPrefix postfixStyle={{color:'red'}}
                     disabled
                     prefix='Na stanju:'
                     value={props.item.kolicina}

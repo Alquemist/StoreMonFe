@@ -5,11 +5,17 @@ import Button from 'react-bootstrap/Button'
 const itemList = (props) => {
     //console.log(props.item)
     if (props.item.dimenzije) {props.item.dimenzije = JSON.stringify(props.item.dimenzije)};
-    const tblHeaders = Object.keys(props.item).map((title, idx) => {return props.item[title]? <th key={idx}>{title}</th>: null})
-    const tblFields = Object.keys(props.item).map((val, idx) => {return props.item[val]? <td key={idx}>{props.item[val]}</td>: null})
+    const tblHeaders = Object.keys(props.item).map((title, idx) => {return props.item[title]? <th key={idx}>{title}</th>: null});
+    const tblFields = Object.keys(props.item).map((val, idx) => {
+        return props.item[val]
+        ?<td key={idx} style={{padding: '5px'}}>
+            {props.item[val]}
+        </td>
+        :null
+    });
 
     return (
-        <Table responsive striped bordered hover>
+        <Table responsive striped bordered hover style={{margin:0}}>
             <tbody>
                 <tr>
                     {tblHeaders}
@@ -18,8 +24,8 @@ const itemList = (props) => {
                 <tr>
                     {tblFields}
                     {props.buttonList&&props.buttonList.map((buttonProps, idx) => {return(
-                        <td key={idx}>
-                            <Button variant={buttonProps.buttonVariant} onClick={buttonProps.buttonCallBack}>{buttonProps.buttonLabel}</Button>
+                        <td key={idx} style={{padding:'5px'}}>
+                            <Button variant={buttonProps.buttonVariant} size="sm" onClick={buttonProps.buttonCallBack}>{buttonProps.buttonLabel}</Button>
                         </td>
                     )})}
                 </tr>

@@ -7,12 +7,15 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {InputWithAsyncAutocomplete, FormFieldWithPrefix, FormFieldWithDropdownSuffix} from './CustomForms';
 import {itemSearcHandler, itemTransformData} from '../../Misc/AsyncHandlers'
-import { newAxios } from '../../Misc/MyAxios';
+import {newAxios} from '../../Misc/MyAxios';
 
 const NewItem = (props) => {
     const token = props.token;
     const otpremnica = props.otpremnica
     const ddLabel = (typeof otpremnica.item.id === 'undefined')? '[JM] ': otpremnica.poIzlaznojJM? otpremnica.item.JMIzlaz: otpremnica.item.JMUlaz
+    const ddItems = otpremnica.item.id?
+        [{option: {poIzlaznojJM: false}, label: `${otpremnica.item.JMUlaz} = ${otpremnica.item.JMOdnos}[${otpremnica.item.JMIzlaz}]`}, {option: {poIzlaznojJM: true}, label: otpremnica.item.JMIzlaz}]
+        :[];
     const [validationData, setValidationData] = useState({})
 
     const validateItem = () => {
@@ -42,9 +45,9 @@ const NewItem = (props) => {
 
     return (
         <div>
-            <Alert variant="secondary">
-                <Row>
-                    <Col style={{paddingLeft: '0px'}}>
+            <Alert variant="secondary" style={{padding: '5px', margin: 0}}>
+                <Row className='no-gutters'>
+                    <Col style={{paddingRight: '5px'}}>
                         <InputWithAsyncAutocomplete //key={otpremnica.item.id}
                             selected={Object.keys(otpremnica.item).length? [otpremnica.item]: undefined}
                             asyncInvalid={validationData.itemInvalid}
@@ -67,8 +70,8 @@ const NewItem = (props) => {
                                 onChange={data => props.updateOtpremnica({...otpremnica, ...data})}
                                 ddInvalid={validationData.JMNotSelected}
                                 ddLabel={ddLabel}
-                                ddItems={otpremnica.item.id? [{option: 'JMUlaz', label: `${otpremnica.item.JMUlaz} = ${otpremnica.item.JMOdnos}[${otpremnica.item.JMIzlaz}]`}, {option: 'JMIzlaz', label: otpremnica.item.JMIzlaz}]: []}
-                                onSelectDD={data => props.updateOtpremnica({...otpremnica, poIzlaznojJM: data})}
+                                ddItems={ddItems}
+                                onSelectDD={data => props.updateOtpremnica({...otpremnica, ...data})}
                             />
                             <FormFieldWithPrefix
                                 required
@@ -81,7 +84,7 @@ const NewItem = (props) => {
                             />
                         </Form>
                     </Col>
-                    <Col>
+                    <Col style={{paddingLeft: '5px'}}>
                         <FormFieldWithPrefix
                             type='number'
                             prefix = 'trošak'
@@ -101,7 +104,7 @@ const NewItem = (props) => {
                             value={otpremnica.ukupno && otpremnica.ukupno.toString()}
                             disabled
                         />
-                        <Row>
+                        <Row className='no-gutters'>
                             <Col className="float-right">
                                 {!props.addButtonDisabled &&
                                     <Button variant="outline-dark" size='sm'

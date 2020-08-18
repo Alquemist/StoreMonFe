@@ -33,7 +33,6 @@ const Zaprimka = (props) => {
     const [validationData, setValidationData] = useState({formValidated: false, nazivInvalid: undefined, poUlaznojJMInvalid: undefined})
     const [fieldValidations, setFieldValidations] = useState({mjesto: undefined, dobavljac: undefined})
 
-    console.log(props.token)
     const myAxios = zaprimkaAxios(props.token)
 
     useEffect(() => {
@@ -140,7 +139,7 @@ const Zaprimka = (props) => {
     const deleteCallBack = (idx) => {setItems((oldItems)=>{oldItems.splice(idx, 1); itemIds.splice(idx,1); return [...oldItems]})};
 
     //console.log(hdrState)
-    console.log(item.id)
+    console.log('item id:',item.id)
     //console.log(fieldValidations)
     return (
         <>
@@ -169,7 +168,15 @@ const Zaprimka = (props) => {
                 ]
                 return( item.invBr?
                     <ItemList key={idx}
-                        item={{naziv:'', invBr:'', zapKolicina:'', vrijednost:'', ukupno:'', JMlaz:'', JMIzlaz:'', JMOdnos:'', ...filterData(item, ['id','poUlaznojJM', 'kolicina'])}}
+                        item={{
+                            naziv:'',
+                            invBr:'',
+                            zapKolicina:'',
+                            jedinica: item.poUlaznojJM? item.JMUlaz: item.JMIzlaz,
+                            vrijednost:'',
+                            ukupno:'',
+                            ...filterData(item, ['id','poUlaznojJM', 'kolicina', 'JMUlaz', 'JMIzlaz', 'JMOdnos'])
+                        }}
                         buttonList={itemButtons}
                     />:
                 null

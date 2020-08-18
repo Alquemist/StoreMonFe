@@ -37,7 +37,7 @@ const OtpremniceReporter = (props) => {
     return(
         <>
         <Alert variant="secondary">
-            <Row>
+            <Row className='no-gutters'>
                 <Col>
                     <InputWithAsyncAutocomplete
                         placeholder="naziv ili inv br"

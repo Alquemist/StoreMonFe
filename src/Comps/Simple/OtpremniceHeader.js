@@ -1,19 +1,18 @@
 import React from 'react';
-import {InputWithAutocomplete, FormFieldWithPrefix} from './CustomForms';
+import {InputWithAutocomplete, FormFieldWithPrefix, TexBoxtWithPrefix} from './CustomForms';
 
-import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 
 const otpremnicaHeader = (props) => {
 
-    //console.log(props.hdrData)
+    console.log(props.hdrData)
     //console.log(props.hdrData.mjesto && [props.hdrData.mjesto])
 
     return (
-        <Row>
-            <Col>
+        <Row className='no-gutters'>
+            <Col style={{paddingRight:'5px'}}>
                 <InputWithAutocomplete
                     isInvalid={props.fieldValidations.mjestoInvalid}
                     id='mjesto'
@@ -53,7 +52,7 @@ const otpremnicaHeader = (props) => {
                 />
             </Col>
                
-            <Col>
+            <Col style={{paddingLeft:'5px'}}>
                 <InputWithAutocomplete
                     id='mjestoPrijema'
                     prefix='Mjesto pr'
@@ -71,22 +70,12 @@ const otpremnicaHeader = (props) => {
                     options={props.hdrData.naciniPlacanja}
                     selected={props.hdrData.nacinPlacanja? [props.hdrData.nacinPlacanja]: undefined}
                 />
-                <InputGroup style={{flex: 1}}>
-                    <InputGroup.Prepend>
-                        <InputGroup.Text>Napomena</InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <Form.Control as="textarea" onChange={(event)=>props.onChange({napomena:event.target.value})}/>
-                </InputGroup>
+                <TexBoxtWithPrefix
+                    id='napomena'
+                    prefix='Napomena'
+                    onChange={props.onChange}
+                />
             </Col>
-           
-            {/* <Col style={{height: 'vh', display: 'flex',	}}>
-                <InputGroup style={{flex: 1}}>
-                    <InputGroup.Prepend>
-                        <InputGroup.Text>Napomena</InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <Form.Control as="textarea" onChange={(event)=>props.hdrStateUpdate({napomena:event.target.value})}/>
-                </InputGroup>
-            </Col>             */}
         </Row>
     )
 };

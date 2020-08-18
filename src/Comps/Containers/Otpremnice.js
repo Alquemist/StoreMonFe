@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import OtpremnicaHeader from '../Simple/VPHeader';
+import OtpremnicaHeader from '../Simple/OtpremniceHeader';
 import NewItem from '../Simple/NewItem';
 import ItemList from '../Simple/ItemList';
 import {otpremnicaAxios, getLastInvBr} from '../../Misc/MyAxios'
@@ -28,7 +28,7 @@ const Otpremnice = (props) => {
     const defOtpremnica = {
         item: {},
         otprKolicina: '',
-        poIzlaznojJM: 1,
+        poIzlaznojJM: true,
         osnovnaCijena: '',
         trosak: '',
         rabat: '', 
@@ -51,7 +51,7 @@ const Otpremnice = (props) => {
             return {
             ...oldState, ...response.data, docBr: incrementDocBr(response.data.docBr)} }))
         .catch(error => console.log(error))
-    },[myAxios]);
+    },[]);
 
     const validateHeader = () => {
         const mjestoInvalid = !hdrData.mjesto

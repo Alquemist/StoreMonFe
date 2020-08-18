@@ -10,7 +10,7 @@ import ItemList from '../Simple/ItemList';
 import NalogOverview from '../Simple/NalogOverview';
 import {ChangeNalogStatusModal} from '../Simple/Modals'
 import FilterMenuCarouesel from '../Simple/FilterMenuCarouesel'
-import {InputWithAsyncAutocomplete, FormFieldWithPrefix, TextBox} from '../Simple/CustomForms';
+import {InputWithAsyncAutocomplete, FormFieldWithPrefix, TexBoxtWithPrefix} from '../Simple/CustomForms';
 import {getLastInvBr, saveNalog, getSpecs, getNalogList, updateNalogStatus} from '../../Misc/MyAxios';
 import {filterData, getDates, incrementDocBr} from '../../Misc/Functions';
 import {itemSearcHandler, itemTransformData} from '../../Misc/AsyncHandlers';
@@ -104,12 +104,12 @@ const Nalozi = (props) => {
 	};
 
 	const buttonList = [{buttonLabel: "Izmjeni", buttonCallBack: ()=>{}, buttonVariant: "outline-dark"},];
-	//console.log(item)
+	console.log(specList.length? '70vh': '100vh')
 	return (
 		<>
 		<ChangeNalogStatusModal show={showModal} onCloseCallback={()=>toggleModal(false)} onSaveCallback={onModalSave}/>
-			<Row style={{maxHeight:'70vh'}}>
-				<Col md={6} style={{paddingBottom: 12}}>
+			<Row className='no-gutters' styles={{height: '100vh', display: 'flex'}}>
+				<Col md={6} style={{paddingRight: '6px'}}>
 					<Form validated={validationData.formValidated}>
 						<FormFieldWithPrefix
 							prefix="Doc br."
@@ -146,14 +146,15 @@ const Nalozi = (props) => {
 							value={nalog.kolicina}
 							onChange={newData => setNalog({...nalog, ...newData})}
 						/>
-						<TextBox
-							onChange={value => setNalog({...nalog, napomena:value})}
-							value={nalog.napomena}
+						<TexBoxtWithPrefix
+							id='napomena'
+							prefix='Napomena'
+							onChange={newData => setNalog({...nalog, ...newData})}
 						/>
 					</Form>
 					<Button variant="outline-dark" onClick={saveCallBack}>Sačuvaj</Button>
 				</Col>
-				<Col md={6} style={{}}>
+				<Col md={6}>
 					<FilterMenuCarouesel
 						updateNaloziList={setNaloziList}
 						token={props.token}
@@ -166,8 +167,7 @@ const Nalozi = (props) => {
 						onChoseColumn={data => console.log(data)}/> }
 				</Col>
 			</Row>
-			<Row style={{maxHeight:'30vh'}}>
-				{specList.length?
+			{specList.length?
 				specList.map((spec, idx) => {
 					//console.log(idx)
 					return (
@@ -177,9 +177,8 @@ const Nalozi = (props) => {
 						/>
 					)
 				}
-				):
-				null}
-			</Row>
+			)
+			:null}
 		</>
 	)
 };

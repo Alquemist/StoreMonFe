@@ -25,8 +25,8 @@ const zaprimkaHeader = (props) => {
     };
 
     return (
-        <Row>
-            <Col>
+        <Row className='no-gutters'>
+            <Col style={{paddingRight:'5px'}}>
                 <InputWithAutocomplete
                     valid={props.fieldValidations.mjesto}
                     id='mjesto'
@@ -78,7 +78,7 @@ const zaprimkaHeader = (props) => {
                     />
                 
             </Col>
-            <Col style={{height: 'vh', display: 'flex',	}}>
+            <Col style={{padding: '0 0 5px 5px', height: 'vh', display: 'flex',	}}>
                 <InputGroup style={{flex: 1}}>
                     <InputGroup.Prepend>
                         <InputGroup.Text>Napomena</InputGroup.Text>

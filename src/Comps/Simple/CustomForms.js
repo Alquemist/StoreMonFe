@@ -5,17 +5,13 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Button from 'react-bootstrap/Button'
 
-const style = {
-    marginTop: '0px',
-    marginBottom: '5px',
-    //marginRight: '10px',
-    //marginLeft: '10px',
-  }
+const rowStyle = {
+    padding: '0 0 5px 0',
+    margin: 0,
+}
 
-const InputWithAutocomplete = (props) => {
+export const InputWithAutocomplete = (props) => {
 
     const onChange = (selection) => {
         let selected = {};
@@ -31,9 +27,9 @@ const InputWithAutocomplete = (props) => {
     };
 
     return (
-        <Row style={style}>
+        <Row style={rowStyle}>
             {props.prefix &&
-            <Col xs='3' style={{'paddingRight': 0}}>
+            <Col xs='3' style={{paddingRight: 0, paddingLeft: 0}}>
                 <InputGroup.Text as={Col}>{props.prefix}</InputGroup.Text>
             </Col>}
             <Col style={{'paddingLeft': 0, 'paddingRight': 0}}>
@@ -53,7 +49,7 @@ const InputWithAutocomplete = (props) => {
       );
 };
 
-const InputWithAsyncAutocomplete = (props) => {
+export const InputWithAsyncAutocomplete = (props) => {
     //console.log(props.asyncInvalid)
 
     const [isLoading, setIsLoading] = useState(false);
@@ -69,8 +65,8 @@ const InputWithAsyncAutocomplete = (props) => {
       );
 
     return (
-        <Row style={style}>
-            <Col xs='3' style={{'paddingRight': 0}}>
+        <Row style={rowStyle}>
+            <Col xs='3' style={{paddingRight: 0, paddingLeft: 0}}>
                 <InputGroup.Text as={Col}>{props.prefix}</InputGroup.Text>
             </Col>
             <Col style={{'paddingLeft': 0, 'paddingRight': 0}}>
@@ -102,18 +98,20 @@ const InputWithAsyncAutocomplete = (props) => {
       );
 };
 
-const FormFieldWithPrefix =  (props) => {
+export const FormFieldWithPrefix =  (props) => {
     const prefixSize = props.prefixSize? props.prefixSize: "3"
     const placeholder = props.placeholder? props.placeholder: props.prefix
     const invalidMessage = props.invalidMessage? props.invalidMessage: 'Polje je obavezno!'
+    const prefixStyle = props.prefixStyle? props.prefixStyle: {}
+    const postfixStyle =  props.postfixStyle? props.postfixStyle: {}
     //console.log({fontSize: props.fontSize? props.fontSize: '16px'})
     return (
-        <Form.Group as={Row} style={style}>
+        <Form.Group as={Row} style={rowStyle}>
             <InputGroup>
-                <InputGroup.Prepend as={Col} xs={prefixSize} style={{'paddingRight': 0}}>
-                    <InputGroup.Text className={"text-justify"} as={Col} style={{paddingLeft: 4, paddingRight: 4}}>{props.prefix}</InputGroup.Text>
+                <InputGroup.Prepend as={Col} xs={prefixSize} style={{paddingRight: 0, paddingLeft: 0}}>
+                    <InputGroup.Text className={"text-justify"} as={Col} style={{paddingLeft: 4, paddingRight: 4, ...prefixStyle}}>{props.prefix}</InputGroup.Text>
                 </InputGroup.Prepend>
-                <Form.Control style={{fontSize: props.fontSize? props.fontSize: '16px', paddingRight:'0px'}}
+                <Form.Control style={{fontSize: props.fontSize? props.fontSize: '16px', paddingRight:'0px', ...postfixStyle}}
                     required={props.required}
                     type={props.type}
                     id={props.id}
@@ -132,14 +130,14 @@ const FormFieldWithPrefix =  (props) => {
     )
 };
 
-const FormFieldWithDropDown = (props) => {
+export const FormFieldWithDropDown = (props) => {
     //console.log(props.ddItems)
     const prefixSize = props.prefixSize? props.prefixSize: '3'
     //const ddButtonVariant = props.ddInvalid? "outline-danger": "outline-secondary"
     return(
-        <Form.Group as={Row}>
+        <Form.Group as={Row} style={rowStyle}>
             <InputGroup>
-                <InputGroup.Prepend as={Col} xs={prefixSize} style={{'paddingRight': 0}}>
+                <InputGroup.Prepend as={Col} xs={prefixSize} style={{paddingRight: 0, paddingLeft: 0}}>
                     <InputGroup.Text className={"textJustify"} as={Col} style={{paddingLeft: 4, paddingRight: 4, textAlign: 'center'}}>{props.prefix}</InputGroup.Text>
                 </InputGroup.Prepend>
                 <InputGroup.Append as={Col} style={{paddingLeft:'3px', paddingRight:'0px'}}>
@@ -158,7 +156,7 @@ const FormFieldWithDropDown = (props) => {
     )
 };
 
-const FormFieldWithDropdownSuffix =  (props) => {
+export const FormFieldWithDropdownSuffix =  (props) => {
     const placeholder = props.placeholder? props.placeholder: props.prefix
     const prefixSize = props.prefixSize? props.prefixSize: '3'
     const suffixSize = props.suffixSize? props.suffixSize: '3'
@@ -167,9 +165,9 @@ const FormFieldWithDropdownSuffix =  (props) => {
     const invalidMessage = props.invalidMessage? props.invalidMessage: 'Polje je obavezno!'
     const ddButtonVariant = props.ddInvalid? props.ddInvalidVariant: props.ddValidVariant
     return (
-        <Form.Group as={Row} style={style}>
+        <Form.Group as={Row} style={rowStyle}>
             <InputGroup>
-                <InputGroup.Prepend as={Col} xs={prefixSize} style={{'paddingRight': 0}}>
+                <InputGroup.Prepend as={Col} xs={prefixSize} style={{paddingRight: 0, paddingLeft: 0}}>
                     <InputGroup.Text className={"text-justify"} as={Col} style={{paddingLeft: 4, paddingRight: 4, textAlign: 'center'}}>{props.prefix}</InputGroup.Text>
                 </InputGroup.Prepend>
                 <Form.Control
@@ -192,10 +190,9 @@ const FormFieldWithDropdownSuffix =  (props) => {
                             <Dropdown.Menu>
                                 {props.ddItems.map((ddItem, idx) => {
                                     //console.log(ddItem)
-                                    // const key = Object.keys(ddItem)[0]; const value = Object.values(ddItem)[0];
                                     // console.log(key)
                                     return(
-                                    <Dropdown.Item key={idx} onSelect={() => props.onSelectDD(idx)}>{ddItem.label}</Dropdown.Item>
+                                    <Dropdown.Item key={idx} onSelect={() => props.onSelectDD(ddItem.option)}>{ddItem.label}</Dropdown.Item>
                                 )})}
                             </Dropdown.Menu>
                     </Dropdown>
@@ -214,11 +211,11 @@ const FormFieldWithDropdownSuffix =  (props) => {
     )
 };
 
-const RadiosWithPrefix = (props) => {
+export const RadiosWithPrefix = (props) => {
     const prefixSize = props.prefixSize? props.prefixSize: '3';
     return (
-    <Form.Group as={Row} style={style}>
-        <InputGroup.Prepend as={Col} xs={prefixSize} style={{'paddingRight': 0}}>
+    <Form.Group as={Row} style={rowStyle}>
+        <InputGroup.Prepend as={Col} xs={prefixSize} style={{paddingRight: 0, paddingLeft: 0}}>
             <InputGroup.Text className={"text-justify"} as={Col} style={{paddingLeft: 4, paddingRight: 4, textAlign: 'center'}}>{props.prefix}</InputGroup.Text>
         </InputGroup.Prepend>
         {Object.entries(props.options).map( data => {
@@ -240,10 +237,9 @@ const RadiosWithPrefix = (props) => {
     )
 };
 
-const TextBox = (props) => {
-    ////style={{flex: 1}}
+export const TextBox = (props) => {
     return (
-        <Form.Group as={Row}>
+        <Form.Group as={Row} style={rowStyle}>
             <InputGroup > 
                 <InputGroup.Prepend as={Col} xs='3' style={{paddingRight: "0", borderRight:"0", marginRight:'0'}}>
                     <InputGroup.Text style={{width:'100%'}}>Napomena</InputGroup.Text>
@@ -259,14 +255,14 @@ const TextBox = (props) => {
     )
 };
 
-const DropdownForm = (props) => {
+export const DropdownForm = (props) => {
 
     const [selection, setSelection] = useState(props.options[0])
     let chosenNumber = Number(selection[0])
     let tagList = Array(chosenNumber).fill(1).map((_, idx) => {return(idx+1)})
 
     return (
-        <Row style={style}>
+        <Row className='no-gutters'>
             <Dropdown>
                 <Dropdown.Toggle variant='secondary' style={{marginLeft:"10px"}}>
                     {`${props.prefix} ${selection}`}
@@ -296,5 +292,18 @@ const DropdownForm = (props) => {
     )
 };
 
-
-export {InputWithAutocomplete, InputWithAsyncAutocomplete, FormFieldWithPrefix, FormFieldWithDropdownSuffix, DropdownForm, TextBox, FormFieldWithDropDown, RadiosWithPrefix, };
+export const TexBoxtWithPrefix = (props) => {
+    return (
+        <Form.Group as={Row} className='no-gutters' style={{marginTop: 0, marginBottom: '5px', ...props.customStyle}}>
+            <InputGroup style={{height: '81px'}}>
+                <InputGroup.Prepend as={Col} xs='3' style={{'padding': 0}}>
+                    <InputGroup.Text className={"text-justify"} as={Col} style={{paddingLeft: 4, paddingRight: 4}}>{props.prefix}</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control as="textarea" style={{fontSize: '16px', paddingRight:'0px'}}
+                    onChange={(event)=>props.onChange({[props.id]: event.target.value})}
+                >
+                </Form.Control>
+            </InputGroup>
+        </Form.Group>  
+    );
+};

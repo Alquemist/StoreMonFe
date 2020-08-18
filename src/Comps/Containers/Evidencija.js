@@ -137,9 +137,6 @@ const Evidencija = (props) => {
         .catch((error) => {console.log('Evidencija: saveButtonCallBack:',error)})
     };
 
-    // zaprimkaFetch('/primka/getData/', props.token)
-    // .then(data=>console.log(data))
-    // .catch(err=>console.log(err))
     return (
         modalActive?
         <ConfirmDelete
