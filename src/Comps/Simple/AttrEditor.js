@@ -56,29 +56,31 @@ class FormGroup extends Component {
             <Form.Control md="4" type="text" placeholder="vrijednost" value={this.state.attr.vrijednost} onChange={(event) => this.onAttrChange({vrijednost: event.target.value})}/>
         );
 
+        colStyle = {padding: '0 3px 0 3px'};
+
 
     render() {
         console.log(this.state.attr)
         // console.log(this.props)
 
         return(
-            <Form.Group as={Row}>
+            <Form.Group as={Row} className='no-gutters' style={{padding: 0, margin: 0}}>
             
-                <Col md="4">
+                <Col md="4" style={this.colStyle}>
                     <Form.Control type="text" placeholder="naziv" defaultValue={this.state.attr.naziv} onChange={(event) => this.onAttrChange({naziv: event.target.value})}/>
                 </Col>
-                <Col md="3">
+                <Col md="3" style={this.colStyle}>
                     <Form.Control id="tip" as="select"  onChange={this.attrTypeChanger} defaultValue={this.state.attr.tip}>
                         <option>txt</option>
                         <option>broj</option>
                         <option>bool</option>
                     </Form.Control>
                 </Col>
-                <Col md="4">
+                <Col md="4" style={this.colStyle}>
                     {this.dynElem()}
                 </Col>
                 <Col md='1'>
-                    <Button  variant="light" disabled={this.state.buttonDisabled} onClick={() => this.props.dodajCallback(this.state.attr)}>Dodaj</Button>
+                    <Button style={{padding: '6px'}} variant="light" disabled={this.state.buttonDisabled} onClick={() => this.props.dodajCallback(this.state.attr)}>Dodaj</Button>
                 </Col>
             </Form.Group>
         );
@@ -91,7 +93,7 @@ const attrEditor = props => {
         //console.log(props.attribToEditIdx)
         return (
             <>
-            <Alert variant="secondary">
+            <Alert variant="secondary" style={{padding: '12px', margin: 0}}>
                 <FormGroup
                     key={props.attribToEditIdx}
                     attr={props.attribToEdit}
@@ -112,12 +114,12 @@ const attrEditor = props => {
                             (idx === props.attribToEditIdx)?
                             null:
                             <tr key={idx}>
-                                <td>{attr.naziv}</td>
-                                <td>{attr.vrijednost}</td>
-                                <td>{attr.tip}</td>
-                                <td>
-                                    <Button variant="outline-dark" onClick={() => props.editCallback(idx)}>Uredi</Button>
-                                    <Button variant="outline-danger" onClick={() => props.obrisiCallback(idx)}>Obriši</Button>
+                                <td style={{padding: '3px'}}>{attr.naziv}</td>
+                                <td style={{padding: '3px'}}>{attr.vrijednost}</td>
+                                <td style={{padding: '3px'}}>{attr.tip}</td>
+                                <td style={{padding: '3px'}}>
+                                    <Button variant="outline-dark" size='sm' style={{marginRight: '8px'}} onClick={() => props.editCallback(idx)}>Uredi</Button>
+                                    <Button variant="outline-danger" size='sm' onClick={() => props.obrisiCallback(idx)}>Obriši</Button>
                                 </td>
                             </tr>)})}
                 </tbody>

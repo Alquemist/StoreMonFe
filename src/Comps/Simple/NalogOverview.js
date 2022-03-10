@@ -17,13 +17,13 @@ const NalogOverview = (props) => {
         //console.log(statusDict)
         return(
             <Dropdown>
-                <Dropdown.Toggle variant="outline-secondary" style={{width:'100%', height: '100%'}}>{statusDict[myProps.nalog.status]}</Dropdown.Toggle>
+                <Dropdown.Toggle variant="outline-secondary" style={{width:'100%', height: '100%', fontSize: '12px'}}>{statusDict[myProps.nalog.status]}</Dropdown.Toggle>
                 <Dropdown.Menu>
                     {Object.keys(statusDict).map((statusIdx)=> {
                         //console.log(status, idx)
                         //console.log(status, (idx>=myProps.nalog.status)? idx+1: idx)
-                        return( (myProps.nalog.status !== statusIdx)?
-                            <Dropdown.Item key={statusIdx}
+                        return((myProps.nalog.status !== statusIdx)?
+                            <Dropdown.Item key={statusIdx} style={{fontSize: '12px'}}
                                 onSelect={(newStatus) => props.onNalogStatusChange(newStatus, myProps.nalogIdx)}
                                 eventKey={statusIdx} //statusList.findIndex(statusFromList => {return statusFromList===status})
                                 disabled={statusIdx<myProps.nalog.status}

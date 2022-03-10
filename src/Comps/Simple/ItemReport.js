@@ -75,8 +75,8 @@ const ItemReporter = (props) => {
     console.log(props.item)
     
     return (
-        <Row>
-            <Form as={Col} md={6} validated={validated}>
+        <Row className='no-gutters'>
+            <Form as={Col} md={6} validated={validated} style={{paddingRight: '8px'}}>
                 <FormFieldWithDropdownSuffix
                     disabled={state.formDisabled}
                     required
@@ -111,7 +111,7 @@ const ItemReporter = (props) => {
                 />
             </Form>
 
-            <Form as={Col} md={6} validated={validated} style={{paddingLeft: '8px'}}>
+            <Form as={Col} md={6} validated={validated}>
                 <FormFieldWithPrefix
                     disabled={state.formDisabled}
                     required
@@ -148,13 +148,12 @@ const ItemReporter = (props) => {
                     onChange={props.updateItem}
                 />
 
-            
-                <Row>
+                <Row className='no-gutters'>
                     <Col>
-                        <Button variant="outline-dark" onClick={editButtonCallback}>{state.buttonTag}</Button>
+                        <Button variant="outline-dark" size="sm" style={{marginBottom: '5px'}} onClick={editButtonCallback}>{state.buttonTag}</Button>
                     </Col>
                     <Col>
-                        <Button  variant="outline-danger" onClick={props.deleteItemCallback}>Obriši</Button>
+                        <Button  variant="outline-danger" size="sm" style={{marginBottom: '5px'}} onClick={props.deleteItemCallback}>Obriši</Button>
                     </Col>
                 </Row>
             </Form>

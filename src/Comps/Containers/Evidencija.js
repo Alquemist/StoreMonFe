@@ -144,8 +144,8 @@ const Evidencija = (props) => {
             onDelete={deleteItemCallback}
         />
         :<div>
-            <Alert variant="secondary" style={{marginBottom: '8px'}}>
-                <Form.Group as={Row}>
+            <Alert variant="secondary" style={{paddingBottom: '12px', marginBottom: '8px'}}>
+                <Form.Group as={Row} style={{padding: 0, margin: 0}}>
                     <Col md="4">
                         <SearchButt itemToStore={props.itemToStore} attribsToStore={props.attribsToStore} token={props.token}/>
                     </Col>

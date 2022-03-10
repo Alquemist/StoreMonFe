@@ -109,7 +109,7 @@ const Nalozi = (props) => {
 		<>
 		<ChangeNalogStatusModal show={showModal} onCloseCallback={()=>toggleModal(false)} onSaveCallback={onModalSave}/>
 			<Row className='no-gutters' styles={{height: '100vh', display: 'flex'}}>
-				<Col md={6} style={{paddingRight: '6px'}}>
+				<Col md={6} style={{padding: '0 6px 6px 0'}}>
 					<Form validated={validationData.formValidated}>
 						<FormFieldWithPrefix
 							prefix="Doc br."
