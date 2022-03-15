@@ -1,0 +1,28 @@
+version: '3'
+services:
+    node_srv:
+        build:
+            context: .
+            dockerfile: node.dockerfile
+        image: node_srv
+        container_name: 'node_srv'
+        ports:
+            - 3000:3000
+    mysql:
+        container_name: db_server
+        image: mysql:8.0.16
+        environment:
+            MYSQL_ROOT_PASSWORD: tempPass
+            MYSQL_DATABASE: storemon
+            MYSQL_USER: storemon
+            MYSQL_PASSWORD: storemon1234
+        volumes:
+            - dbData:/var/lib/mysql
+    RestAPI:
+        build:
+            context: .
+            dockerfile: drf.dockerfile
+        image: RestAPI
+        container_name: 'RestAPI'
+volumes: 
+    dbData:

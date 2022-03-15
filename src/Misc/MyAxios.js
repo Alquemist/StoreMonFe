@@ -4,7 +4,7 @@ import axios from 'axios';
 export const newAxios = (token) => {
     return (
     axios.create({
-        baseURL: 'http://localhost:8000/api',
+        baseURL: 'http://RestAPI:8000/api',
         timeout: 2000,
         headers: {Authorization: 'Token ' + token}})
   )
@@ -14,7 +14,7 @@ export const loginAxios = (user, pass) => {
     return (
         axios({
             method: "post",
-            url: "http://localhost:8000/gettoken/",
+            url: "http://RestAPI:8000/gettoken/",
             data: {username: 'admin', password: 'Vrbanja_01'}
         })
     )
