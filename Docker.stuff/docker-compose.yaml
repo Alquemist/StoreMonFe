@@ -1,11 +1,15 @@
-version: '3'
+version: '3.9'
 services:
     node_srv:
         build:
             context: .
             dockerfile: node.dockerfile
         image: node_srv
+        environment:
+            - REACT_APP_HOST=0.0.0.0
         container_name: 'node_srv'
+        networks:
+            - storemon
         ports:
             - 3000:3000
     mysql:
@@ -18,11 +22,20 @@ services:
             MYSQL_PASSWORD: storemon1234
         volumes:
             - dbData:/var/lib/mysql
-    RestAPI:
+        networks:
+            - storemon        
+    rest_api:
         build:
             context: .
             dockerfile: drf.dockerfile
-        image: RestAPI
-        container_name: 'RestAPI'
+        image: rest_api
+        container_name: 'rest_api'
+        networks:
+            - storemon
+        depends_on:
+            - mysql
 volumes: 
     dbData:
+
+networks:
+    storemon:

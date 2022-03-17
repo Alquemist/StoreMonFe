@@ -4,7 +4,10 @@ FROM python:3.9.6
 ENV PYTHONUNBUFFERED 1
 RUN apt-get update && apt-get install git -y
 RUN git clone https://github.com/Alquemist/StoreMonAPI /StoreMonAPI
+RUN chmod -R 777 /StoreMonAPI
 WORKDIR /StoreMonAPI
-RUN pip install -r requirements.txt
+#RUN /usr/local/bin/python -m pip install --upgrade pip
+RUN pip install --default-timeout=1000 -r requirements.txt
 EXPOSE 8080
-CMD python manage.py makemigrations && python manage.py migrate && python manage.py runserver
+RUN python manage.py makemigrations app && python manage.py migrate app
+CMD python manage.py runserver
