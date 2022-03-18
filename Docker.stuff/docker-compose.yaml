@@ -2,8 +2,8 @@ version: '3.9'
 services:
     node_srv:
         build:
-            context: .
-            dockerfile: node.dockerfile
+            context: ..
+            dockerfile: Docker.stuff/node.dockerfile
         image: node_srv
         environment:
             - REACT_APP_HOST=0.0.0.0
@@ -24,16 +24,18 @@ services:
             - dbData:/var/lib/mysql
         networks:
             - storemon        
-    rest_api:
+    restapi:
         build:
             context: .
             dockerfile: drf.dockerfile
-        image: rest_api
-        container_name: 'rest_api'
+        image: restapi
+        container_name: 'restapi'
         networks:
             - storemon
         depends_on:
             - mysql
+        ports:
+            - 8000:8000
 volumes: 
     dbData:
 
