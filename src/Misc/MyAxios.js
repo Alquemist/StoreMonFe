@@ -15,7 +15,7 @@ export const loginAxios = (user, pass) => {
         axios({
             method: "post",
             url: "http://192.168.0.15:8000/gettoken/",
-            data: {username: 'admin', password: 'Vrbanja_01'}
+            data: {username: 'admin', password: 'pass'}
         })
     )
 };
